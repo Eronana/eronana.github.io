@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>POJ3067 Japan | Erona’s Blog</title>
+  <meta name="author" content="Erona">
+  
+  <meta name="description" content="左侧n个点,右侧m个点,有k条线,每条线连接左边的某个点和边的某个点问总共有多少个交点,并且不存在多条线交与一点的情况
+首先把k条线按左边点升序排序然后开始连线左侧a连到右侧b因为排序过,所以已经存在的连线,一定是a上面的如果连到了b下面,现在a连b,则一定会穿过之前连接的线,形成交点于是有几条这样的线,就会有几个交点画个图连一下就清楚了,本想画个图来着,不过Graphviz用的不熟,这种强调顺序的图还不会画总之问题变为求已经连到大于b的点的个数,直接上树状数组即可实现上,由于原题没给K的范围,所以我直接用了vector并且注意范围,记得用long longgetsum时记得,获取的是某点下面的和,所以记得getsum(x+1)详细见代码">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="POJ3067 Japan"/>
+  <meta property="og:site_name" content="Erona’s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Erona’s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e4bb2e6fc8fabe451c4ce05a400dfc2b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Erona’s Blog</a></h1>
+  <h2><a href="/">GOD&#39;S IN HIS HEAVEN,ALL&#39;S RIGHT WITH THE WORLD</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-17T08:25:52.000Z"><a href="/2015/01/17/POJ3067-Japan/">Jan 17 2015</a></time>
+      
+      
+  
+    <h1 class="title">POJ3067 Japan</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>左侧n个点,右侧m个点,有k条线,每条线连接左边的某个点和边的某个点<br>问总共有多少个交点,并且不存在多条线交与一点的情况</p>
+<p>首先把k条线按左边点升序排序<br>然后开始连线<br>左侧a连到右侧b<br>因为排序过,所以已经存在的连线,一定是a上面的<br>如果连到了b下面,现在a连b,则一定会穿过之前连接的线,形成交点<br>于是有几条这样的线,就会有几个交点<br>画个图连一下就清楚了,本想画个图来着,不过Graphviz用的不熟,这种强调顺序的图还不会画<br>总之问题变为求已经连到大于b的点的个数,直接上树状数组即可<br>实现上,由于原题没给K的范围,所以我直接用了vector<br>并且注意范围,记得用long long<br>getsum时记得,获取的是某点下面的和,所以记得getsum(x+1)<br>详细见代码<br><a id="more"></a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> N <span class="number">1005</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br><span class="line"><span class="keyword">int</span> bit[N];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">getsum</span><span class="params">(<span class="keyword">int</span> x)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(x&lt;=n)</span><br><span class="line">    &#123;</span><br><span class="line">        sum+=bit[x];</span><br><span class="line">        x+=lowbit(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> sum)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(x&gt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        bit[x]+=sum;</span><br><span class="line">        x-=lowbit(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> cases)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m,k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;m,&amp;n,&amp;k);</span><br><span class="line">    <span class="built_in">memset</span>(bit,<span class="number">0</span>,<span class="keyword">sizeof</span>(bit));</span><br><span class="line">    <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt; road(k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;road[i].first,&amp;road[i].second);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(road.begin(),road.end());</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> x=road[i].second;</span><br><span class="line">        ans+=getsum(x+<span class="number">1</span>);</span><br><span class="line">        update(x,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Test case %d: %lld\n"</span>,cases,ans);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=t;i++)solve(i);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/ACM/">ACM</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/树状数组/">树状数组</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form>
+    <input type="search" name="q" id ="search-input" results="0" placeholder="搜尋">
+  </form>
+</div>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','CpLu8jR2_2yNcZMFkPcb');
+</script>
+
+  
+<div class="widget tag">
+  <h3 class="title">分類</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/ACM/">ACM</a><small>290</small></li>
+  
+    <li><a href="/categories/Coding/">Coding</a><small>10</small></li>
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>7</small></li>
+  
+    <li><a href="/categories/Life/">Life</a><small>8</small></li>
+  
+    <li><a href="/categories/Tools/">Tools</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/30/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/07/CF499C-Crazy-Town/">CF499C Crazy Town</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/17/省赛总结/">省赛总结</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU4081-Qin-Shi-Huang-s-National-Road-System/">HDU4081 Qin Shi Huang&#39;s National Road System</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF293A-Weird-Game/">CF293A Weird Game</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF292B-Network-Topology/">CF292B Network Topology</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF291B-Command-Line-Arguments/">CF291B Command Line Arguments</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544D-Destroying-Roads/">CF544D Destroying Roads</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/2-SAT/">2-SAT</a><small>4</small></li>
+  
+    <li><a href="/tags/A/">A*</a><small>1</small></li>
+  
+    <li><a href="/tags/BASIC/">BASIC</a><small>1</small></li>
+  
+    <li><a href="/tags/BFS/">BFS</a><small>9</small></li>
+  
+    <li><a href="/tags/C/">C#</a><small>2</small></li>
+  
+    <li><a href="/tags/C-11/">C++11</a><small>1</small></li>
+  
+    <li><a href="/tags/CCF/">CCF</a><small>5</small></li>
+  
+    <li><a href="/tags/CF/">CF</a><small>1</small></li>
+  
+    <li><a href="/tags/DAG/">DAG</a><small>1</small></li>
+  
+    <li><a href="/tags/DFS/">DFS</a><small>16</small></li>
+  
+    <li><a href="/tags/DP/">DP</a><small>19</small></li>
+  
+    <li><a href="/tags/Dijkstra/">Dijkstra</a><small>11</small></li>
+  
+    <li><a href="/tags/Dinic/">Dinic</a><small>1</small></li>
+  
+    <li><a href="/tags/Facebook/">Facebook</a><small>1</small></li>
+  
+    <li><a href="/tags/Floyd/">Floyd</a><small>4</small></li>
+  
+    <li><a href="/tags/GAP/">GAP</a><small>1</small></li>
+  
+    <li><a href="/tags/GZIP/">GZIP</a><small>1</small></li>
+  
+    <li><a href="/tags/HTTP/">HTTP</a><small>1</small></li>
+  
+    <li><a href="/tags/Hash/">Hash</a><small>1</small></li>
+  
+    <li><a href="/tags/Hopcroft-Karp/">Hopcroft-Karp</a><small>1</small></li>
+  
+    <li><a href="/tags/Konig定理/">Konig定理</a><small>1</small></li>
+  
+    <li><a href="/tags/Kosaraju/">Kosaraju</a><small>1</small></li>
+  
+    <li><a href="/tags/Kruskal/">Kruskal</a><small>5</small></li>
+  
+    <li><a href="/tags/Kuhn-Munkres/">Kuhn-Munkres</a><small>1</small></li>
+  
+    <li><a href="/tags/K短路/">K短路</a><small>1</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>2</small></li>
+  
+    <li><a href="/tags/LCS/">LCS</a><small>2</small></li>
+  
+    <li><a href="/tags/LIS/">LIS</a><small>4</small></li>
+  
+    <li><a href="/tags/Lambda/">Lambda</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/LoveLive/">LoveLive</a><small>1</small></li>
+  
+    <li><a href="/tags/Mac/">Mac</a><small>1</small></li>
+  
+    <li><a href="/tags/PB/">PB</a><small>1</small></li>
+  
+    <li><a href="/tags/Prim/">Prim</a><small>8</small></li>
+  
+    <li><a href="/tags/SAP/">SAP</a><small>6</small></li>
+  
+    <li><a href="/tags/SLF/">SLF</a><small>1</small></li>
+  
+    <li><a href="/tags/SPFA/">SPFA</a><small>11</small></li>
+  
+    <li><a href="/tags/SSH/">SSH</a><small>1</small></li>
+  
+    <li><a href="/tags/ST3/">ST3</a><small>1</small></li>
+  
+    <li><a href="/tags/Stoer-Wagner/">Stoer-Wagner</a><small>2</small></li>
+  
+    <li><a href="/tags/TF-IDF/">TF-IDF</a><small>1</small></li>
+  
+    <li><a href="/tags/Tarjan/">Tarjan</a><small>8</small></li>
+  
+    <li><a href="/tags/Trie/">Trie</a><small>2</small></li>
+  
+    <li><a href="/tags/WA2/">WA2</a><small>1</small></li>
+  
+    <li><a href="/tags/WebBrowser/">WebBrowser</a><small>2</small></li>
+  
+    <li><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li><a href="/tags/disqus/">disqus</a><small>1</small></li>
+  
+    <li><a href="/tags/github/">github</a><small>3</small></li>
+  
+    <li><a href="/tags/hash/">hash</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>2</small></li>
+  
+    <li><a href="/tags/hook/">hook</a><small>1</small></li>
+  
+    <li><a href="/tags/json/">json</a><small>1</small></li>
+  
+    <li><a href="/tags/k叉树/">k叉树</a><small>1</small></li>
+  
+    <li><a href="/tags/lazy/">lazy</a><small>2</small></li>
+  
+    <li><a href="/tags/log/">log</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/scanf/">scanf</a><small>1</small></li>
+  
+    <li><a href="/tags/table/">table</a><small>1</small></li>
+  
+    <li><a href="/tags/中毒/">中毒</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>6</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/二分图匹配/">二分图匹配</a><small>14</small></li>
+  
+    <li><a href="/tags/二分图多重匹配/">二分图多重匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/二叉树/">二叉树</a><small>2</small></li>
+  
+    <li><a href="/tags/二进制/">二进制</a><small>2</small></li>
+  
+    <li><a href="/tags/位运算/">位运算</a><small>1</small></li>
+  
+    <li><a href="/tags/全局最小割/">全局最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/前缀和/">前缀和</a><small>2</small></li>
+  
+    <li><a href="/tags/割点/">割点</a><small>2</small></li>
+  
+    <li><a href="/tags/割边/">割边</a><small>2</small></li>
+  
+    <li><a href="/tags/匈牙利算法/">匈牙利算法</a><small>2</small></li>
+  
+    <li><a href="/tags/双连通分量/">双连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/可行流/">可行流</a><small>3</small></li>
+  
+    <li><a href="/tags/哈密顿回路/">哈密顿回路</a><small>2</small></li>
+  
+    <li><a href="/tags/哈尔滨/">哈尔滨</a><small>1</small></li>
+  
+    <li><a href="/tags/图论/">图论</a><small>2</small></li>
+  
+    <li><a href="/tags/基本不等式/">基本不等式</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>1</small></li>
+  
+    <li><a href="/tags/多重背包/">多重背包</a><small>1</small></li>
+  
+    <li><a href="/tags/大整数/">大整数</a><small>1</small></li>
+  
+    <li><a href="/tags/字符串/">字符串</a><small>5</small></li>
+  
+    <li><a href="/tags/差分约束/">差分约束</a><small>7</small></li>
+  
+    <li><a href="/tags/带花树匹配/">带花树匹配</a><small>2</small></li>
+  
+    <li><a href="/tags/平面图/">平面图</a><small>1</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>18</small></li>
+  
+    <li><a href="/tags/康托展开/">康托展开</a><small>2</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>2</small></li>
+  
+    <li><a href="/tags/强连通分量/">强连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/当前弧/">当前弧</a><small>2</small></li>
+  
+    <li><a href="/tags/微博/">微博</a><small>1</small></li>
+  
+    <li><a href="/tags/快速乘法/">快速乘法</a><small>1</small></li>
+  
+    <li><a href="/tags/快速幂/">快速幂</a><small>1</small></li>
+  
+    <li><a href="/tags/总结/">总结</a><small>1</small></li>
+  
+    <li><a href="/tags/扫描线/">扫描线</a><small>3</small></li>
+  
+    <li><a href="/tags/拆边/">拆边</a><small>1</small></li>
+  
+    <li><a href="/tags/拓扑排序/">拓扑排序</a><small>3</small></li>
+  
+    <li><a href="/tags/按键精灵/">按键精灵</a><small>1</small></li>
+  
+    <li><a href="/tags/排序/">排序</a><small>1</small></li>
+  
+    <li><a href="/tags/搜索/">搜索</a><small>5</small></li>
+  
+    <li><a href="/tags/数学/">数学</a><small>11</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>5</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>4</small></li>
+  
+    <li><a href="/tags/无向图/">无向图</a><small>1</small></li>
+  
+    <li><a href="/tags/无源汇/">无源汇</a><small>3</small></li>
+  
+    <li><a href="/tags/最优匹配/">最优匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/最大匹配/">最大匹配</a><small>1</small></li>
+  
+    <li><a href="/tags/最大团/">最大团</a><small>1</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>17</small></li>
+  
+    <li><a href="/tags/最大独立集/">最大独立集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>3</small></li>
+  
+    <li><a href="/tags/最小支配集/">最小支配集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小树形图/">最小树形图</a><small>1</small></li>
+  
+    <li><a href="/tags/最小流/">最小流</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点权覆盖/">最小点权覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点覆盖/">最小点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小环/">最小环</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生成树/">最小生成树</a><small>15</small></li>
+  
+    <li><a href="/tags/最小生成森林/">最小生成森林</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生生成树/">最小生生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最小路径覆盖/">最小路径覆盖</a><small>2</small></li>
+  
+    <li><a href="/tags/最小顶点覆盖/">最小顶点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最短距离/">最短距离</a><small>1</small></li>
+  
+    <li><a href="/tags/最短路/">最短路</a><small>21</small></li>
+  
+    <li><a href="/tags/最短路径/">最短路径</a><small>3</small></li>
+  
+    <li><a href="/tags/有上下界/">有上下界</a><small>4</small></li>
+  
+    <li><a href="/tags/有向图/">有向图</a><small>1</small></li>
+  
+    <li><a href="/tags/有源汇/">有源汇</a><small>2</small></li>
+  
+    <li><a href="/tags/杨辉三角/">杨辉三角</a><small>2</small></li>
+  
+    <li><a href="/tags/枚举/">枚举</a><small>5</small></li>
+  
+    <li><a href="/tags/染色/">染色</a><small>1</small></li>
+  
+    <li><a href="/tags/栈/">栈</a><small>1</small></li>
+  
+    <li><a href="/tags/树/">树</a><small>2</small></li>
+  
+    <li><a href="/tags/树状数组/">树状数组</a><small>15</small></li>
+  
+    <li><a href="/tags/树的直径/">树的直径</a><small>1</small></li>
+  
+    <li><a href="/tags/概率/">概率</a><small>2</small></li>
+  
+    <li><a href="/tags/次小生成树/">次小生成树</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉回路/">欧拉回路</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉路径/">欧拉路径</a><small>1</small></li>
+  
+    <li><a href="/tags/混合图欧拉回路/">混合图欧拉回路</a><small>1</small></li>
+  
+    <li><a href="/tags/滚动数组/">滚动数组</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/环路/">环路</a><small>1</small></li>
+  
+    <li><a href="/tags/相似性/">相似性</a><small>1</small></li>
+  
+    <li><a href="/tags/离散化/">离散化</a><small>3</small></li>
+  
+    <li><a href="/tags/离线/">离线</a><small>2</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>18</small></li>
+  
+    <li><a href="/tags/组合/">组合</a><small>1</small></li>
+  
+    <li><a href="/tags/缩点/">缩点</a><small>4</small></li>
+  
+    <li><a href="/tags/背包/">背包</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+    <li><a href="/tags/自制音速/">自制音速</a><small>1</small></li>
+  
+    <li><a href="/tags/表达式/">表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算几何/">计算几何</a><small>2</small></li>
+  
+    <li><a href="/tags/记忆化搜索/">记忆化搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/负环/">负环</a><small>1</small></li>
+  
+    <li><a href="/tags/贪心/">贪心</a><small>13</small></li>
+  
+    <li><a href="/tags/费用流/">费用流</a><small>9</small></li>
+  
+    <li><a href="/tags/迭代加深搜索/">迭代加深搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/迷宫/">迷宫</a><small>1</small></li>
+  
+    <li><a href="/tags/逆序数/">逆序数</a><small>1</small></li>
+  
+    <li><a href="/tags/链式前向星/">链式前向星</a><small>2</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/雪菜/">雪菜</a><small>1</small></li>
+  
+    <li><a href="/tags/静态邻接表/">静态邻接表</a><small>2</small></li>
+  
+    <li><a href="/tags/预科/">预科</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Erona
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'erona';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

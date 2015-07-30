@@ -1,0 +1,895 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第 23 頁 | 彙整 | Erona’s Blog</title>
+  <meta name="author" content="Erona">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Erona’s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Erona’s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e4bb2e6fc8fabe451c4ce05a400dfc2b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Erona’s Blog</a></h1>
+  <h2><a href="/">GOD&#39;S IN HIS HEAVEN,ALL&#39;S RIGHT WITH THE WORLD</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title">彙整</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-08T08:55:35.000Z"><a href="/2015/01/08/POJ1515-Street-Directions/">Jan 8 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/08/POJ1515-Street-Directions/">POJ1515 Street Directions</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>把一个无向图在保持连通性的前提下改造成有向图<br>即把所有无向边改为有向边<br>求最多能把多少无向边改为有向边<br>改造后的图为强连通图,但我们可以先从无向图的双连通开始考虑<br>无向图的桥,一定不可以改造,否则会造成双连通分量之间不连通,改造后的有向图自然也不连通<br>至于双连通分量,通过dfs,把每条边都走一遍,一定可以经过所有点<br>于是dfs时,输出所走的边即可<br>并且dfs递归的条件是走没走过的边,而不是没走过的点<br>根据邻接表建无向图,一般都是建成双向的有向图<br>所以标记走过的边时,要把u-&gt;v和v-&gt;u都标记为走过的<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/08/POJ1515-Street-Directions/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-08T07:06:16.000Z"><a href="/2015/01/08/关于求边的双连通分量/">Jan 8 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/08/关于求边的双连通分量/">关于求边的双连通分量</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>双连通分量有两种,一种是被割点分开的,一种是被桥分开的<br>求点的双连通分量时,可以在求割点时通过栈把分量取出来<br>边的话,也可以这么做,某本书是这样写着的<br>但是某本书中的代码有问题<br>仅仅是点分量中的dfn[u]&lt;=low[v]改成dfn[u]<low[v],其他代码相同 桥和割点是有区别的,虽然同是把图分割为多个双连通分量="" 但是割点是属于连通分量的,而桥,则是只有一个顶点属于分量="" 直接通过条件dfn[u]<low[v]来从栈中取出分量会导致取不干净="" ![](="" images="" tarjan_bridge.png)="" 桥已经用红色标注好="" dfn[1]<low[4],于是会从栈中把分量4,5,6取出="" dfn[1]<low[7],把7,8,9取出="" 算法结束="" 于是包含1在内的分量1,2,3没有被求出="" 不过不难看出,没有求出的分量都在栈中="" 算法结束后把栈中的节点都取出,这些节点也会组成一个双连通分量="" <figure="" class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> p)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    dfn[u]=low[u]=++dcnt;</span><br><span class="line">    st.push(u);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=ehead[u];i;i=edge[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v=edge[i].v;</span><br><span class="line">        <span class="keyword">if</span>(v==p)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(!dfn[v])</span><br><span class="line">        &#123;</span><br><span class="line">            dfs(v,u);</span><br><span class="line">            low[u]=min(low[u],low[v]);</span><br><span class="line">            <span class="keyword">if</span>(dfn[u]&lt;low[v])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> x;</span><br><span class="line">                <span class="keyword">do</span></span><br><span class="line">                &#123;</span><br><span class="line">                    x=st.top();st.pop();</span><br><span class="line">                    bcc[x]=bcccnt;</span><br><span class="line">                &#125;<span class="keyword">while</span>(x!=v);</span><br><span class="line">                bcccnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="keyword">if</span>(!dfn[i])</span><br><span class="line">    &#123;</span><br><span class="line">        dfs(i,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">while</span>(st.size())</span><br><span class="line">        &#123;</span><br><span class="line">            bcc[st.top()]=bcccnt;</span><br><span class="line">            st.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        bcccnt++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></low[v],其他代码相同></p>
+<p>这种方法有些麻烦,需要在两个位置对栈进行操作<br>其实还有更简洁的方法,判断dfn[u]==low[u]<br>网上的代码基本都是用的这种方法<br>low[u]表示u所能到达的节点的最小的dfn<br>如果low[u]<dfn[u],则会形成环路,环路包括u,并且会包括u的父节点 如果low[u]="">dfn[u],则不会形成包括u的环路<br>如果low[u]==dfn[u],则表示通过u的子节点还能回到u<br>于是包括u在内的u的子节点就是一个完整的环路<br>也就是双连通分量<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> p)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    dfn[u]=low[u]=++dcnt;</span><br><span class="line">    st.push(u);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=ehead[u];i;i=edge[i].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v=edge[i].v;</span><br><span class="line">        <span class="keyword">if</span>(v==p)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(!dfn[v])</span><br><span class="line">        &#123;</span><br><span class="line">            dfs(v,u);</span><br><span class="line">            low[u]=min(low[u],low[v]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dfn[u]==low[u])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            v=st.top();st.pop();</span><br><span class="line">            bcc[v]=bcccnt;</span><br><span class="line">        &#125;<span class="keyword">while</span>(v!=u);</span><br><span class="line">        bcccnt++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="keyword">if</span>(!dfn[i])</span><br><span class="line">    &#123;</span><br><span class="line">        dfs(i,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></dfn[u],则会形成环路,环路包括u,并且会包括u的父节点></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-08T06:32:23.000Z"><a href="/2015/01/08/POJ3177-Redundant-Paths/">Jan 8 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/08/POJ3177-Redundant-Paths/">POJ3177 Redundant Paths</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>给出无向图,求出最少增加多少条边后会变为双连通图<br>双连通分量中,已经是每个点都可互达<br>于是可以用缩点的思想,把双连通分量进行缩点<br>缩点后图会变为树<br>剩下的问题就是最少加多少条边,树会变为双连通图<br>只要把入度为1的点之间连一条边,那么就会形成环路<br>一条边可以解决掉2个度数为1的点<br>于是求出度数为1的点的个数deg1<br>答案便是deg1/2<br>但是这种解法有个小BUG<br>如果只有1个入度为1的点<br>1/2==0很显然是错的<br>推广一下,deg1为奇数时,需要(deg1+1)/2<br>偶数+1,由于是整除,对结果也不会有任何影响<br>于是正解为(deg1+1)/2<br>还有个问题需要注意的是,题目中说了,可能会出现重边<br>于是使用邻接表加边时,需要判重<br>顺便,POJ3352和本题唯一的不同之处就是POJ3352保证没有重边<br>于是直接用本题代码提交到POJ3352是完全可以AC的<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/08/POJ3177-Redundant-Paths/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-07T16:07:46.000Z"><a href="/2015/01/08/POJ2942-Knights-of-the-Round-Table/">Jan 8 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/08/POJ2942-Knights-of-the-Round-Table/">POJ2942 Knights of the Round Table</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>题意:有n个骑士,骑士们需要坐在圆桌上开会,开会必须满足两个条件<br>1.互相憎恨的骑士不能坐在一起<br>2.开会的骑士必须是奇数,而且左右都要有人<br>不能参加任何会议的其实要被开除,请求出最少要开除多少骑士</p>
+<p>这题的知识点蛮多的</p>
+<ul>
+<li>求双连通分量</li>
+<li>判断奇环</li>
+<li>用交叉染色法判断二分图</li>
+</ul>
+<p>不得不吐槽一下某本书,把这么复杂的题作为第一道双连通分量的练习题<br>数据给出的是骑士的憎恨关系<br>很容易想到建反图,即把可以坐在一起的骑士连上线<br>然后求出所有能坐在一起开会的骑士,判断是否是奇数<br>双连通分量的性质是,分量重任意两点都有至少2条不同的路可互达<br>也就是说,分量内的任意两个骑士都能一起开会<br>骑士坐在圆桌上,还必须是奇数,于是就是判断双连通分量内是否存在奇环<br>双连通分量中,如果有一个点在奇环内,则整个双连通分量的所有点都在奇环内<br>简单证明一下<br>一定能找到一条经过所有点的环<br>如果是奇环,则所有点都在奇环内<br>如果是偶环,那么其中任意一点在其他的奇环中,剩下的点也可以构成奇环<br><img src="/images/POJ2942.png" alt=""><br>节点数为6,偶数<br>不过其中1,2,3形成了一个奇环<br>剩下的自然也构成了奇环<br>判断奇环可以用交叉染色法<br>若u染为0,则与u相邻的所有v节点都染成1,与v相邻的所有节点再染成0<br>只然0和1两种颜色<br>若整个双连通分量都可染成两种颜色,也就是整个双连通分量为二分图<br>那么这个图就不存在奇环<br>若存在奇环,则一点会出现染色失败的情况<br>总结一下<br>先建反图<br>然后找双连通分量<br>用交叉染色法对每个分量进行染色<br>如果染色失败,则该分量中存在奇环,则该分量的所有点都在奇环中,这个分量的所有骑士都可以参加会议<br>最后统计出不能参加会议的骑士数,输出即可<br>求双连通分量时,需要注意,判u是否为断割点的条件有两个<br>1.u为根节点,并且u的子树大于1<br>2.u不为根节点,dfn[u]&lt;=low[v]<br>如果没有边从u的子树返回到u,则u不可能属于分量<br>如果有边从u的子树返回到u,则一定可以通过第二个条件把u加入到分量中<br>所以求双连通分量时,为根节点的割点要无视<br>在实现上就更方便了,不需要对根节点作特殊处理了<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/08/POJ2942-Knights-of-the-Round-Table/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-05T06:31:09.000Z"><a href="/2015/01/05/考试终于结束了/">Jan 5 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/05/考试终于结束了/">考试终于结束了</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>这学期期末四科:大物,英语,电路,离散<br>最后的离散在今天上午考完,于是明天就能回家了<br>这学期作大死,两个共选课几乎没去,基本挂了<br>体育基本没刷卡,基本也挂了<br>大物很水,大概能过<br>英语也是这样<br>电路的话,只写了不到20分的题,大概能对一半?反正是挂了,大概连补考的机会都没有,得直接重修<br>离散的话,虽然完全没听课,不过复习了3个多小时,在加上有点基础(图论方面)<br>大概考试能打50分左右,加上平时分的话,有可能过,最次大概也能补考了<br>总之假期已经开始了<br>愉快的刷题,哈吉马路哟!</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-05T06:17:39.000Z"><a href="/2015/01/05/SSH的反向隧道的基本用法/">Jan 5 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/05/SSH的反向隧道的基本用法/">SSH的反向隧道的基本用法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有时候会遇到这种需求<br>我们需要在外网方位内网中的服务器,比如从家里连到公司内网<br>首先你需要右一台外网的服务器<br>这时候用SSH的反向隧道就可以很简单的解决<br>首先配置好公钥,然后在内网机器用下面这条命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -NfR <span class="number">222</span>:localhost:<span class="number">22</span> user@hostname -p22</span><br></pre></td></tr></table></figure></p>
+<p>N表示不执行命令<br>f是在后台运行<br>R表示绑定端口 把本地的22端口和远程主机的222端口绑定起来<br>后面是普通的ssh参数<br>这样就可以在外网机器使用222端口来登录内网的ssh了<br>但是这样还是略麻烦,还要在外网服务器上操作<br>编辑外网服务器的sshd_config,添加选项<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GatewayPorts yes</span><br></pre></td></tr></table></figure></p>
+<p>然后内网的ssh命令改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -g -b <span class="number">0.0</span>.<span class="number">0.0</span> -NfR <span class="number">222</span>:localhost:<span class="number">22</span> user@hostname -p22</span><br></pre></td></tr></table></figure></p>
+<p>也就是说,加上参数-g -b 0.0.0.0<br>这样用外网的222端口即可登录内网的ssh<br>最后的问题就稳定性了,有可能由于网路不稳定导致ssh断开<br>于是把ssh换成autossh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autossh -M <span class="number">0</span> -g -b <span class="number">0.0</span>.<span class="number">0.0</span> -NfR <span class="number">222</span>:localhost:<span class="number">22</span> user@hostname -p22</span><br></pre></td></tr></table></figure></p>
+<p>增加参数 -M 0</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-04T14:49:18.000Z"><a href="/2015/01/04/POJ1523-SPF/">Jan 4 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/04/POJ1523-SPF/">POJ1523 SPF</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>求割点,以及被割点分成的连通块的个数<br>Tarjan即可<br>觉得这次代码写的好糟糕<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/04/POJ1523-SPF/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-03T15:06:54.000Z"><a href="/2015/01/03/POJ3114-Countries-in-War/">Jan 3 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/03/POJ3114-Countries-in-War/">POJ3114 Countries in War</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>邮局之间可以单向发送信件,发送信件需要一定的时间<br>同一国家的所有邮局之间可以使用电子通信手段,信息可瞬间传达<br>如果两个邮局直接都可以发邮件给对方,那么这两个邮局就属于同一个国家<br>每组数据有k个询问,求A发发邮件给B要多久<br>乍一看是一个很简单的最短路,似乎用k次Dijkstra求最短路即可<br>不过本体的一个重要条件是,统一国家可以瞬间到达<br>也就是统一国家的邮局之间的权值为0<br>但是数据中并不会给出哪些邮局是同一国家的<br>需要我们邮局间是否可以互达来判断是否是同一国家的<br>也就是求强连通分量<br>然后把每个强连通分量缩为一个点<br>这样缩点后的图便是DAG图,用DFS即可求解最短路<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/03/POJ3114-Countries-in-War/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-03T08:32:10.000Z"><a href="/2015/01/03/POJ2375-Cow-Ski-Area/">Jan 3 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/03/POJ2375-Cow-Ski-Area/">POJ2375 Cow Ski Area</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一个矩形的滑雪场,给出每个点的海拔<br>每个点只能到达与其上下左右相邻的,对角线不行<br>并且只能从高的地方到达低的地方,海拔相同的地方可以互相到达(很科学,想像一下滑雪场即可)<br>现在可以建一些缆车,可以从第海拔点运送到高海拔点<br>问最少建多少个缆车,可以使滑雪场中任意两点互达</p>
+<p>同Network of Schools一样,把强连通分量缩点<br>然后答案为max(入度为零点的个数,出度为零点的个数)<br>特殊的,图本来就是强连通就输出0</p>
+<p>一般来说,Tarjan走起即可,不过本图比较特殊<br>如果无视掉所有海拔相同的点,那就是DAG图<br>所以可互达的点,也只有相邻且海拔相同的点<br>这样对图进行DFS即可求出强连通分量<br>本体的一个坑点就是第8个测试点是500*500的图,并且每个点的海拔都是1<br>这样直接DFS的话,很华丽的就爆栈了<br>于是我改成了非递归的DFS<br>结果又很华丽的TLE,这使我百思不得其解<br>最后我尝试着把std::stack换成了手写栈后,奇迹的AC了<br>WTF,std::stack有这么慢么<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/03/POJ2375-Cow-Ski-Area/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-02T15:48:02.000Z"><a href="/2015/01/02/POJ1236-Network-of-Schools/">Jan 2 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/02/POJ1236-Network-of-Schools/">POJ1236 Network of Schools</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>给出一个有向网络,若A能到达B,则A可以立刻把文件传给B<br>现在要把新文件发放到所有计算机中,求最少需要放置个.再增加多少条边,把新文件发放到任意一个计算机中都可以更新到整个网络<br>由于有这种传递性质,所以每个强连通分量都可缩点<br>缩点后统计入度为0的点的个数<br>第二问,求最少增加多少边可使图变为强连通图<br>统计入度为0的点的个数inc,出度为0的点的个数outc<br>max(inc,outc)就是答案<br>个人的理解是,既然要使图联通,每个点的出度和入度就不能为0<br>不然就存在无法从其他点到达的点和不能到达其他点的点<br>本题还有个特例就是,缩成一个点<br>也就是只有1个强联通分量的情况下,也就是本身就是强连通图<br>这时就不需要添加任何边了,输出&quot;1\n0\n&quot;即可<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/02/POJ1236-Network-of-Schools/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+    <a href="/archives/page/22/" class="alignleft prev">上一頁</a>
+  
+  
+    <a href="/archives/page/24/" class="alignright next">下一頁</a>
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form>
+    <input type="search" name="q" id ="search-input" results="0" placeholder="搜尋">
+  </form>
+</div>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','CpLu8jR2_2yNcZMFkPcb');
+</script>
+
+  
+<div class="widget tag">
+  <h3 class="title">分類</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/ACM/">ACM</a><small>290</small></li>
+  
+    <li><a href="/categories/Coding/">Coding</a><small>10</small></li>
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>7</small></li>
+  
+    <li><a href="/categories/Life/">Life</a><small>8</small></li>
+  
+    <li><a href="/categories/Tools/">Tools</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/30/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/07/CF499C-Crazy-Town/">CF499C Crazy Town</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/17/省赛总结/">省赛总结</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU4081-Qin-Shi-Huang-s-National-Road-System/">HDU4081 Qin Shi Huang&#39;s National Road System</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF293A-Weird-Game/">CF293A Weird Game</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF292B-Network-Topology/">CF292B Network Topology</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF291B-Command-Line-Arguments/">CF291B Command Line Arguments</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544D-Destroying-Roads/">CF544D Destroying Roads</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/2-SAT/">2-SAT</a><small>4</small></li>
+  
+    <li><a href="/tags/A/">A*</a><small>1</small></li>
+  
+    <li><a href="/tags/BASIC/">BASIC</a><small>1</small></li>
+  
+    <li><a href="/tags/BFS/">BFS</a><small>9</small></li>
+  
+    <li><a href="/tags/C/">C#</a><small>2</small></li>
+  
+    <li><a href="/tags/C-11/">C++11</a><small>1</small></li>
+  
+    <li><a href="/tags/CCF/">CCF</a><small>5</small></li>
+  
+    <li><a href="/tags/CF/">CF</a><small>1</small></li>
+  
+    <li><a href="/tags/DAG/">DAG</a><small>1</small></li>
+  
+    <li><a href="/tags/DFS/">DFS</a><small>16</small></li>
+  
+    <li><a href="/tags/DP/">DP</a><small>19</small></li>
+  
+    <li><a href="/tags/Dijkstra/">Dijkstra</a><small>11</small></li>
+  
+    <li><a href="/tags/Dinic/">Dinic</a><small>1</small></li>
+  
+    <li><a href="/tags/Facebook/">Facebook</a><small>1</small></li>
+  
+    <li><a href="/tags/Floyd/">Floyd</a><small>4</small></li>
+  
+    <li><a href="/tags/GAP/">GAP</a><small>1</small></li>
+  
+    <li><a href="/tags/GZIP/">GZIP</a><small>1</small></li>
+  
+    <li><a href="/tags/HTTP/">HTTP</a><small>1</small></li>
+  
+    <li><a href="/tags/Hash/">Hash</a><small>1</small></li>
+  
+    <li><a href="/tags/Hopcroft-Karp/">Hopcroft-Karp</a><small>1</small></li>
+  
+    <li><a href="/tags/Konig定理/">Konig定理</a><small>1</small></li>
+  
+    <li><a href="/tags/Kosaraju/">Kosaraju</a><small>1</small></li>
+  
+    <li><a href="/tags/Kruskal/">Kruskal</a><small>5</small></li>
+  
+    <li><a href="/tags/Kuhn-Munkres/">Kuhn-Munkres</a><small>1</small></li>
+  
+    <li><a href="/tags/K短路/">K短路</a><small>1</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>2</small></li>
+  
+    <li><a href="/tags/LCS/">LCS</a><small>2</small></li>
+  
+    <li><a href="/tags/LIS/">LIS</a><small>4</small></li>
+  
+    <li><a href="/tags/Lambda/">Lambda</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/LoveLive/">LoveLive</a><small>1</small></li>
+  
+    <li><a href="/tags/Mac/">Mac</a><small>1</small></li>
+  
+    <li><a href="/tags/PB/">PB</a><small>1</small></li>
+  
+    <li><a href="/tags/Prim/">Prim</a><small>8</small></li>
+  
+    <li><a href="/tags/SAP/">SAP</a><small>6</small></li>
+  
+    <li><a href="/tags/SLF/">SLF</a><small>1</small></li>
+  
+    <li><a href="/tags/SPFA/">SPFA</a><small>11</small></li>
+  
+    <li><a href="/tags/SSH/">SSH</a><small>1</small></li>
+  
+    <li><a href="/tags/ST3/">ST3</a><small>1</small></li>
+  
+    <li><a href="/tags/Stoer-Wagner/">Stoer-Wagner</a><small>2</small></li>
+  
+    <li><a href="/tags/TF-IDF/">TF-IDF</a><small>1</small></li>
+  
+    <li><a href="/tags/Tarjan/">Tarjan</a><small>8</small></li>
+  
+    <li><a href="/tags/Trie/">Trie</a><small>2</small></li>
+  
+    <li><a href="/tags/WA2/">WA2</a><small>1</small></li>
+  
+    <li><a href="/tags/WebBrowser/">WebBrowser</a><small>2</small></li>
+  
+    <li><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li><a href="/tags/disqus/">disqus</a><small>1</small></li>
+  
+    <li><a href="/tags/github/">github</a><small>3</small></li>
+  
+    <li><a href="/tags/hash/">hash</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>2</small></li>
+  
+    <li><a href="/tags/hook/">hook</a><small>1</small></li>
+  
+    <li><a href="/tags/json/">json</a><small>1</small></li>
+  
+    <li><a href="/tags/k叉树/">k叉树</a><small>1</small></li>
+  
+    <li><a href="/tags/lazy/">lazy</a><small>2</small></li>
+  
+    <li><a href="/tags/log/">log</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/scanf/">scanf</a><small>1</small></li>
+  
+    <li><a href="/tags/table/">table</a><small>1</small></li>
+  
+    <li><a href="/tags/中毒/">中毒</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>6</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/二分图匹配/">二分图匹配</a><small>14</small></li>
+  
+    <li><a href="/tags/二分图多重匹配/">二分图多重匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/二叉树/">二叉树</a><small>2</small></li>
+  
+    <li><a href="/tags/二进制/">二进制</a><small>2</small></li>
+  
+    <li><a href="/tags/位运算/">位运算</a><small>1</small></li>
+  
+    <li><a href="/tags/全局最小割/">全局最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/前缀和/">前缀和</a><small>2</small></li>
+  
+    <li><a href="/tags/割点/">割点</a><small>2</small></li>
+  
+    <li><a href="/tags/割边/">割边</a><small>2</small></li>
+  
+    <li><a href="/tags/匈牙利算法/">匈牙利算法</a><small>2</small></li>
+  
+    <li><a href="/tags/双连通分量/">双连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/可行流/">可行流</a><small>3</small></li>
+  
+    <li><a href="/tags/哈密顿回路/">哈密顿回路</a><small>2</small></li>
+  
+    <li><a href="/tags/哈尔滨/">哈尔滨</a><small>1</small></li>
+  
+    <li><a href="/tags/图论/">图论</a><small>2</small></li>
+  
+    <li><a href="/tags/基本不等式/">基本不等式</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>1</small></li>
+  
+    <li><a href="/tags/多重背包/">多重背包</a><small>1</small></li>
+  
+    <li><a href="/tags/大整数/">大整数</a><small>1</small></li>
+  
+    <li><a href="/tags/字符串/">字符串</a><small>5</small></li>
+  
+    <li><a href="/tags/差分约束/">差分约束</a><small>7</small></li>
+  
+    <li><a href="/tags/带花树匹配/">带花树匹配</a><small>2</small></li>
+  
+    <li><a href="/tags/平面图/">平面图</a><small>1</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>18</small></li>
+  
+    <li><a href="/tags/康托展开/">康托展开</a><small>2</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>2</small></li>
+  
+    <li><a href="/tags/强连通分量/">强连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/当前弧/">当前弧</a><small>2</small></li>
+  
+    <li><a href="/tags/微博/">微博</a><small>1</small></li>
+  
+    <li><a href="/tags/快速乘法/">快速乘法</a><small>1</small></li>
+  
+    <li><a href="/tags/快速幂/">快速幂</a><small>1</small></li>
+  
+    <li><a href="/tags/总结/">总结</a><small>1</small></li>
+  
+    <li><a href="/tags/扫描线/">扫描线</a><small>3</small></li>
+  
+    <li><a href="/tags/拆边/">拆边</a><small>1</small></li>
+  
+    <li><a href="/tags/拓扑排序/">拓扑排序</a><small>3</small></li>
+  
+    <li><a href="/tags/按键精灵/">按键精灵</a><small>1</small></li>
+  
+    <li><a href="/tags/排序/">排序</a><small>1</small></li>
+  
+    <li><a href="/tags/搜索/">搜索</a><small>5</small></li>
+  
+    <li><a href="/tags/数学/">数学</a><small>11</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>5</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>4</small></li>
+  
+    <li><a href="/tags/无向图/">无向图</a><small>1</small></li>
+  
+    <li><a href="/tags/无源汇/">无源汇</a><small>3</small></li>
+  
+    <li><a href="/tags/最优匹配/">最优匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/最大匹配/">最大匹配</a><small>1</small></li>
+  
+    <li><a href="/tags/最大团/">最大团</a><small>1</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>17</small></li>
+  
+    <li><a href="/tags/最大独立集/">最大独立集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>3</small></li>
+  
+    <li><a href="/tags/最小支配集/">最小支配集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小树形图/">最小树形图</a><small>1</small></li>
+  
+    <li><a href="/tags/最小流/">最小流</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点权覆盖/">最小点权覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点覆盖/">最小点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小环/">最小环</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生成树/">最小生成树</a><small>15</small></li>
+  
+    <li><a href="/tags/最小生成森林/">最小生成森林</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生生成树/">最小生生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最小路径覆盖/">最小路径覆盖</a><small>2</small></li>
+  
+    <li><a href="/tags/最小顶点覆盖/">最小顶点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最短距离/">最短距离</a><small>1</small></li>
+  
+    <li><a href="/tags/最短路/">最短路</a><small>21</small></li>
+  
+    <li><a href="/tags/最短路径/">最短路径</a><small>3</small></li>
+  
+    <li><a href="/tags/有上下界/">有上下界</a><small>4</small></li>
+  
+    <li><a href="/tags/有向图/">有向图</a><small>1</small></li>
+  
+    <li><a href="/tags/有源汇/">有源汇</a><small>2</small></li>
+  
+    <li><a href="/tags/杨辉三角/">杨辉三角</a><small>2</small></li>
+  
+    <li><a href="/tags/枚举/">枚举</a><small>5</small></li>
+  
+    <li><a href="/tags/染色/">染色</a><small>1</small></li>
+  
+    <li><a href="/tags/栈/">栈</a><small>1</small></li>
+  
+    <li><a href="/tags/树/">树</a><small>2</small></li>
+  
+    <li><a href="/tags/树状数组/">树状数组</a><small>15</small></li>
+  
+    <li><a href="/tags/树的直径/">树的直径</a><small>1</small></li>
+  
+    <li><a href="/tags/概率/">概率</a><small>2</small></li>
+  
+    <li><a href="/tags/次小生成树/">次小生成树</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉回路/">欧拉回路</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉路径/">欧拉路径</a><small>1</small></li>
+  
+    <li><a href="/tags/混合图欧拉回路/">混合图欧拉回路</a><small>1</small></li>
+  
+    <li><a href="/tags/滚动数组/">滚动数组</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/环路/">环路</a><small>1</small></li>
+  
+    <li><a href="/tags/相似性/">相似性</a><small>1</small></li>
+  
+    <li><a href="/tags/离散化/">离散化</a><small>3</small></li>
+  
+    <li><a href="/tags/离线/">离线</a><small>2</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>18</small></li>
+  
+    <li><a href="/tags/组合/">组合</a><small>1</small></li>
+  
+    <li><a href="/tags/缩点/">缩点</a><small>4</small></li>
+  
+    <li><a href="/tags/背包/">背包</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+    <li><a href="/tags/自制音速/">自制音速</a><small>1</small></li>
+  
+    <li><a href="/tags/表达式/">表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算几何/">计算几何</a><small>2</small></li>
+  
+    <li><a href="/tags/记忆化搜索/">记忆化搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/负环/">负环</a><small>1</small></li>
+  
+    <li><a href="/tags/贪心/">贪心</a><small>13</small></li>
+  
+    <li><a href="/tags/费用流/">费用流</a><small>9</small></li>
+  
+    <li><a href="/tags/迭代加深搜索/">迭代加深搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/迷宫/">迷宫</a><small>1</small></li>
+  
+    <li><a href="/tags/逆序数/">逆序数</a><small>1</small></li>
+  
+    <li><a href="/tags/链式前向星/">链式前向星</a><small>2</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/雪菜/">雪菜</a><small>1</small></li>
+  
+    <li><a href="/tags/静态邻接表/">静态邻接表</a><small>2</small></li>
+  
+    <li><a href="/tags/预科/">预科</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Erona
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'erona';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

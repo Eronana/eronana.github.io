@@ -1,0 +1,899 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第 2 頁 | 彙整：2014/12 | Erona’s Blog</title>
+  <meta name="author" content="Erona">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Erona’s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Erona’s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e4bb2e6fc8fabe451c4ce05a400dfc2b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Erona’s Blog</a></h1>
+  <h2><a href="/">GOD&#39;S IN HIS HEAVEN,ALL&#39;S RIGHT WITH THE WORLD</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title">2014/12</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-27T13:12:11.000Z"><a href="/2014/12/27/POJ1984-Navigation-Nightmare/">Dec 27 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/27/POJ1984-Navigation-Nightmare/">POJ1984 Navigation Nightmare</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>用并查集来处理个个农场的距离关系,在查找和合并时处理相对坐标<br>一开始是开了两个并查集,把X和Y分开处理<br>不过看了别人的代码,发现这么做完全没有意义,一个并查集一个坐标关系数据即可<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/27/POJ1984-Navigation-Nightmare/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-27T09:46:43.000Z"><a href="/2014/12/27/POJ3164-Command-Network/">Dec 27 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/27/POJ3164-Command-Network/">POJ3164 Command Network</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>题意是给n个点,m条有向边<br>求以1为根的最小树形图<br>所谓最小树形图,就是有向图的最小生成树<br>算法为朱刘Edmonds<br>理解的不太好,写一遍,当作模板题好了<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/27/POJ3164-Command-Network/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-23T07:29:10.000Z"><a href="/2014/12/23/POJ1679-The-Unique-MST/">Dec 23 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/23/POJ1679-The-Unique-MST/">POJ1679 The Unique MST</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>正如题目所说,这题的目的是求最小生成树是否唯一<br>而正解就是求次小生成树<br>若次小生成树=最小生成树,则最小生成树不唯一<br>求次小生成树是基于最小生成树的<br>先记住一个结论,次小生成树可由最小生成树替换一条边得来<br>于是问题就成了找出一条不属于最小生成树的边,和一条属于最小生成树的边,用前者替换后者,在保证树仍然联通的情况下,使得边的权重最小<br>很容易想到的方式是枚举所有不属于最小生成树的边,然后把这条边加进去<br>然后很显然,新加入的边会和最小生成树形成一个环<br>最后我们从这个环中找到除了新加入的边,权值最大的边,删掉它<br>新生成树=最小生成树+加入边权值-删除边权值<br>当枚举完所有边后,次小生成树就是每次新生成树中最小的<br>整个算法中,只有计算环的最大边不是很容易想到,其他不分都很简单<br>于是重点就是求生成树中两点之间最大的边<br>之前也说过,求次小生成树要基于最小生成树<br>最小生成树有两种算法,Prim和Kruskal<br>两点间最长边都可以在这两种算法中顺便求得<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/23/POJ1679-The-Unique-MST/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-23T03:42:37.000Z"><a href="/2014/12/23/POJ1240-Pre-Post-erous/">Dec 23 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/23/POJ1240-Pre-Post-erous/">POJ1240 Pre-Post-erous!</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>题目大意:给出m叉树的前序和后序遍历序列,求出有种符合这种序列的m叉树<br>前序序列的第一个字符为树根,第二个字符为第一棵子树的树根<br>后序序列的最后一个字符为树根,第一个字符为第一颗子树的最后一个节点<br>根据这两条性质,可以得出从后序序列的开始到前序序列第二个字符出现的位置的这段字符,为第一颗子树的后序序列<br>前序序列从第二个字符起,截取相同长度,便是第一颗子树的前序序列<br>于是可以通过递归的方式,把m叉树的层次结构还原出来<br>用第四个样例举例<br>13 abejkcfghid jkebfghicda<br>前序的第二个字符为b,于是在后序中以b为分界线<br>jkeb fghicd a<br>前序根据长度,也这样断开<br>a bejk cfghid<br>于是得到了第一棵子树的前序序列bejk,后序序列jkeb,这两个序列可以递归处理<br>接下来,把已经得到的序列从原序列中删除<br>acfghid<br>fghicda<br>然后操作同上<br>a cfghi d<br>fghic d a<br>可以得到第二课子树序列cfghi和fghic<br>剩下<br>ad<br>da<br>继续同上<br>得到序列d和d<br>最后剩下树根<br>a<br>a<br>这样根节点下的子树的结构就完成了<br>而子树的子树,通过递归,即可还原出正课树<br>还记得上面的13吗,那是13叉树的意思<br>不过我们处理完成后发现,根节点下只有3颗树<br>于是总共有多少种可能性呢?<br>由于子树的先后顺序是固定的:<br>bejk和jkeb 为第一棵<br>cfghi和fghic 为第二棵<br>d和的 为第三棵<br>其实就是从m个位置中选择3个位置<br>故只考虑根节点的子树的情况,结果就是$$C_{m}^3$$<br>通过递归,不断把每颗树的情况数量相乘,即可得到答案<br>编程实现时,可以直接把树根掐掉,然后判断序列长度是否为0,我觉得这样方便一些<br>计算组合数,直接上杨辉三角即可<br>杨辉三角和组合数正好差了1位,所以写了个宏<br>不过由于差了一位,数组的长度也要多开一位,今天就是被这个坑了<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/23/POJ1240-Pre-Post-erous/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-22T13:29:38.000Z"><a href="/2014/12/22/我的WA2中毒症状似乎又发作了/">Dec 22 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/22/我的WA2中毒症状似乎又发作了/">我的WA2中毒症状似乎又发作了</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>今天某室友在我的传教下,终于开始了WA2之旅,虽说之前也有把动画安利给他<br>一开始的时候,是和他一起看的,偶尔还吐槽一下,动画和游戏不一样的地方<br>不过峰城祭过后,心中总有些压抑,不忍再看下去<br>回想了一下去年初玩游戏的感受,我得出结论,我再次中毒了<br>明明看动画都没什么感觉的,难倒是因为游戏的带入感强的原因?<br>大概睡一觉就好了,不过一想起雪菜就有种超不爽的感觉<br>果然雪菜才是我心目中的理想对象</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-22T12:16:12.000Z"><a href="/2014/12/22/记哈尔滨一游/">Dec 22 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/22/记哈尔滨一游/">记哈尔滨一游</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>2014年12月14日早,我踏上了去哈尔滨的路程<br>座的火车,大概3个小时就到了<br>此行的起因,是去哈工程考个CCF软件能力认证,而真正目的则是和预科的室友们见一面,聊一聊<br>我没有让室友们来接我,而是和我同行的同学直接杀到哈工程<br>吃点东西,休息一会,就到了考试的时间<br>说是考试,其实模式和OI差不多,唯一区别便是这个认证考试也是允许带纸质资料的<br>提醒和模拟题一样,3道SB题,两道略难的<br>最后一个网络流不会,于是只写了4道,检查了一遍,距离结束还有1个小时,不过刚好可以交卷<br>交了卷,和同学告了别,接着就坐地铁到了黑工程<br>不得不说这两个工程大学离得很近,地铁不过两站<br>我们都是分散到各个学校的,不过只有我在齐齐哈尔,他们都在哈尔滨<br>等了一会,基本都来了,大哥还带了大嫂,于是直奔饭店<br>到地方没多久,某逗B也到了,这回人齐了<br>吃着,喝着,侃着,时间过得很快<br>吃完后,就直接各回个家了,由于迟来的某人的寝室有空床,而且看门大妈管得也很松,我便去那睡了,也就是黑科技<br>第二天的话,在寝室随便糊弄过去了,随便去食堂吃了点东西,也顺便在食堂的电视中再次目睹了新版李莫愁的风采<br>到了晚上,继续胡吃海喝,不过这晚老四固执要复习,便没有来<br>本打算第二天便回去了,已经在呆了2天,请的假也只到明天,也就是周二<br>不过晚上兴致大起,把预科的学妹,或者说是我明年在齐大的学妹约出来玩<br>由于她周二才考完试,周三才自由,于是我最快也只能周四回来了<br>周二帮预科室友以及他的室友翻了墙,便赶去了哈工程<br>到了以及有点晚了,犹记得拿着手机被风吹的很动手,便从包里翻出手机打电话<br>联系到了老大,然后去老四那里混了一晚上,虽说看门大妈很严,不过还是机智的混进去了<br>第二天,我起得大概还算是早,不过学妹也很能赖床,出门时,半个上午已经过去了<br>原计划是上午一起找工作,下午去玩,但是很显然,找工作时没戏了<br>约定在服装城见面,从黑工程到服装城有地铁直达,于是我先到了,然后四处逛逛<br>大改逛了近1个小时,接到电话说是到了,接着就去KFC见面了<br>嗯,在KFC吃了点东西,休息了一下,就去了万达看电影<br>至于电影,便是匆匆那年.说真的,听名字,就知道和那些年是一路货色,说不上喜欢,但也不是讨厌<br>剧情图样,全场淡定的看完,不过学妹倒是从中间哭到了结尾,是我太麻木还是她太感性,我真的搞不懂<br>看完电影,找了个住处休息了一下,又踏上了找工作&amp;吃饭(找饭)的路途<br>找工作不是很顺,或者说是非常不顺,简单来说就是各种坑<br>于是目标便转向了吃饭,由于我太挑食的缘故(其实她也略挑),走了好久才找到个有家常菜的地方<br>吃完饭,回到住处,看了会动画,玩了会游戏.于是周三就这么过去了<br>周四早,吃完早饭后别了学妹,我这糟糕的一天便开始了<br>先是老四理解错位置,导致没能及时在博物馆碰头<br>然后买票时纵然我用了插队大法,可最前面那个SB花了10多分钟才买玩票<br>在我前面的大叔都买到了去齐齐哈尔的票,到了我这里居然停售了<br>然后我智商也下降了,直接走了.根据之后的情况来看,我应该买一张下躺车的票<br>没有票,而且车也快开了,打算混进去,然后在车上补票<br>无奈哈站管得太严,第一到关卡都没过去<br>没办法了,再次排队买票,结果轮到我没座票了,然后再次智商下线<br>售票员推荐我买到大庆的站票,然后买大庆到齐齐哈尔的座票,听起来还挺合理的<br>但是还要收5块的异地购票手续费,不差这5块,买了<br>买完没走两部我就发现我被骗了,车过了大庆后遍地都是坐,我买个毛座票啊<br>到齐齐哈尔后,稍作休息,又去了实验室给雪地学妹门讲课,记得讲的图的存储,图的DFS和BFS<br>总之哈尔滨一游就这么结束了<br>好吧,我承认我写作水平小学生了,反正自己能看懂就行</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-21T05:33:44.000Z"><a href="/2014/12/21/POJ2255-Tree-Recovery/">Dec 21 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/21/POJ2255-Tree-Recovery/">POJ2255 Tree Recovery</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>根据二叉树的前序和中序的遍历序列,求出后序遍历序列<br>用递归根据两种序列建树即可,由于所求为后序遍历序列,所以要在最后输出节点<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/21/POJ2255-Tree-Recovery/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-20T14:27:37.000Z"><a href="/2014/12/20/POJ2438-Children-s-Dining/">Dec 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/20/POJ2438-Children-s-Dining/">POJ2438 Children&#39;s Dining</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>把小朋友看成点<br>没有敌对关系的小朋友之间都有边<br>于是就是求哈密顿回路<br>由于题目给出了条件,总共有2n个小朋友,不会超过n-1个敌对关系<br>也就是说,这2n个点,每个点至少有2n-(n-1)条边,也就是说每个点的度数都&gt;=n+1,任意两个点的度数之和&gt;=2n+2<br>根据哈密顿回路存在的充分条件:n个顶点的无向图,任意两个不同顶点度数之和大于等于n<br>于是可以肯定本题一定有解<br>哈密顿回路的构造方法大概是这样<br>首先随便找出一个回路(一个点也行)<br>然后不断的扩充这条回路,直到包含所有点<br>下面上代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/20/POJ2438-Children-s-Dining/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-13T13:56:32.000Z"><a href="/2014/12/13/关于Dijkstra的堆优化算法/">Dec 13 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/13/关于Dijkstra的堆优化算法/">关于Dijkstra的堆优化算法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Dijkstra也写了很多次了<br>今天看了下在HicoCoder上的别人的Dijkstar<br>发现比我写的快了好多,我的76ms,别人的0ms,1ms<br>这也差的太多了吧<br>于是开始对比,究竟是哪里的问题<br>于是发现,我是这么写的<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//q为优先队列,比较函数直接用dist[a]&lt;dist[b]</span></span><br><span class="line"><span class="keyword">while</span>(q.size())</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//u为取出的点</span></span><br><span class="line">	<span class="comment">//遍历和u的边,v为顶点,w为权</span></span><br><span class="line">	<span class="keyword">if</span>(dist[v]&gt;dist[u]+w)</span><br><span class="line">	&#123;</span><br><span class="line">		dist[v]=dist[u]+w;</span><br><span class="line">		q.push(v);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而别人的,是这样的<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//q为优先队列,采用pair的方式,把点和距离都入队,直接比较距离</span></span><br><span class="line"><span class="keyword">while</span>(q.size())</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//u为取出的点</span></span><br><span class="line">	<span class="comment">//dist为u入队时的距离</span></span><br><span class="line">	<span class="comment">//遍历和u的边,v为顶点,w为权</span></span><br><span class="line">	<span class="keyword">if</span>(vis[u])<span class="keyword">continue</span>;</span><br><span class="line">	vis[u]=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">if</span>(!vis[v])</span><br><span class="line">	&#123;</span><br><span class="line">		q.push(make_pair(dist+w,v));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>作为Dijkstra的核心代码,写法却有些差异<br>首先说前者,也就是我惯用的写法,慢的原因是没有记录已经完成的点<br>当一个点被松弛多次后最后松弛的会第一个出队,然后松弛临近的点<br>完成后,间隔若干次,同一个点再次出队,遍历一遍邻接的点(仅仅是遍历,不会再松弛)<br>然后..还有第三个,如果被松弛了3次的话<br>于是很显然,浪费了效率<br>后者,使用了vis数组记录访问过的点,就没有这种缺陷,速度自然就上去了<br>遍历到v,直接就吧v丢进q里也是一种效率的浪费,不过似乎影响不大<br>不过,其实这点差距引起的效率,也不足以引起我的注意<br>实际上引起效率巨大差距的原因是....我写错了比较函数<br>于是变成了大顶堆orz没超时就不错了<br>不过变成了大顶堆的情况,为什么也能得到正确结果呢?<br>你看,SPFA就没有用优先队列,不也一样能求出来么<br>比较一下不考虑负环情况的SPFA和优先队列的Dijkstra</p>
+<table>
+<thead>
+<tr>
+<th>SPFA</th>
+<th>Dijkstra    </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>队列</td>
+<td>优先队列</td>
+</tr>
+<tr>
+<td>不记录和判断已访问过的点</td>
+<td>记录和判断已访问过的点</td>
+</tr>
+</tbody>
+</table>
+<p>还有其他区别吗?似乎没有了.<br>于是即使是写错变成大顶堆的优先队列,由于判断条件是队列不为空就继续松弛下去<br>于是总能完成算法并保证正确性..<br>所以,以后写Dijkstra时,为了保证正确性和效率,都要加上判断...<br>不然犯了写错符号这种低级错误时都不能立刻发现..</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-12T12:05:16.000Z"><a href="/2014/12/12/hiho23-最短路径·一/">Dec 12 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/12/hiho23-最短路径·一/">hiho23 最短路径·一</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>很水的一题,代码可以直接当作Dijkstra的模板了<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> N <span class="number">1010</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> M <span class="number">10010</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> INF <span class="number">0x3f3f3f3f</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> Edge</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> v,w,next;</span><br><span class="line">&#125;edge[M*<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> ehead[N];</span><br><span class="line"><span class="keyword">int</span> ecnt=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span><br><span class="line"></span>&#123;</span><br><span class="line"></span><br><span class="line">    edge[ecnt]=&#123;v,w,ehead[u]&#125;;</span><br><span class="line">    ehead[u]=ecnt++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dist[N];</span><br><span class="line"><span class="keyword">struct</span> cmp</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dist[a]&gt;dist[b]; <span class="comment">//注意这里要反过来</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m,s,t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u,v,w;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;u&gt;&gt;v&gt;&gt;w;</span><br><span class="line">        AddEdge(u,v,w);</span><br><span class="line">        AddEdge(v,u,w);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(dist,INF,<span class="keyword">sizeof</span>(dist));</span><br><span class="line">    priority_queue&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;,cmp&gt;q;</span><br><span class="line">    dist[s]=<span class="number">0</span>;</span><br><span class="line">    q.push(s);</span><br><span class="line">    <span class="keyword">while</span>(q.size())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u=q.top();q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=ehead[u];i;i=edge[i].next)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> v=edge[i].v;</span><br><span class="line">            <span class="keyword">int</span> w=edge[i].w;</span><br><span class="line">            <span class="keyword">int</span> newdist=dist[u]+w;</span><br><span class="line">            <span class="keyword">if</span>(newdist&lt;dist[v])</span><br><span class="line">            &#123;</span><br><span class="line">                dist[v]=newdist;</span><br><span class="line">                q.push(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;dist[t]&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+    <a href="/archives/2014/12/" class="alignleft prev">上一頁</a>
+  
+  
+    <a href="/archives/2014/12/page/3/" class="alignright next">下一頁</a>
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form>
+    <input type="search" name="q" id ="search-input" results="0" placeholder="搜尋">
+  </form>
+</div>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','CpLu8jR2_2yNcZMFkPcb');
+</script>
+
+  
+<div class="widget tag">
+  <h3 class="title">分類</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/ACM/">ACM</a><small>290</small></li>
+  
+    <li><a href="/categories/Coding/">Coding</a><small>10</small></li>
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>7</small></li>
+  
+    <li><a href="/categories/Life/">Life</a><small>8</small></li>
+  
+    <li><a href="/categories/Tools/">Tools</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/30/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/07/CF499C-Crazy-Town/">CF499C Crazy Town</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/17/省赛总结/">省赛总结</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU4081-Qin-Shi-Huang-s-National-Road-System/">HDU4081 Qin Shi Huang&#39;s National Road System</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF293A-Weird-Game/">CF293A Weird Game</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF292B-Network-Topology/">CF292B Network Topology</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF291B-Command-Line-Arguments/">CF291B Command Line Arguments</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544D-Destroying-Roads/">CF544D Destroying Roads</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/2-SAT/">2-SAT</a><small>4</small></li>
+  
+    <li><a href="/tags/A/">A*</a><small>1</small></li>
+  
+    <li><a href="/tags/BASIC/">BASIC</a><small>1</small></li>
+  
+    <li><a href="/tags/BFS/">BFS</a><small>9</small></li>
+  
+    <li><a href="/tags/C/">C#</a><small>2</small></li>
+  
+    <li><a href="/tags/C-11/">C++11</a><small>1</small></li>
+  
+    <li><a href="/tags/CCF/">CCF</a><small>5</small></li>
+  
+    <li><a href="/tags/CF/">CF</a><small>1</small></li>
+  
+    <li><a href="/tags/DAG/">DAG</a><small>1</small></li>
+  
+    <li><a href="/tags/DFS/">DFS</a><small>16</small></li>
+  
+    <li><a href="/tags/DP/">DP</a><small>19</small></li>
+  
+    <li><a href="/tags/Dijkstra/">Dijkstra</a><small>11</small></li>
+  
+    <li><a href="/tags/Dinic/">Dinic</a><small>1</small></li>
+  
+    <li><a href="/tags/Facebook/">Facebook</a><small>1</small></li>
+  
+    <li><a href="/tags/Floyd/">Floyd</a><small>4</small></li>
+  
+    <li><a href="/tags/GAP/">GAP</a><small>1</small></li>
+  
+    <li><a href="/tags/GZIP/">GZIP</a><small>1</small></li>
+  
+    <li><a href="/tags/HTTP/">HTTP</a><small>1</small></li>
+  
+    <li><a href="/tags/Hash/">Hash</a><small>1</small></li>
+  
+    <li><a href="/tags/Hopcroft-Karp/">Hopcroft-Karp</a><small>1</small></li>
+  
+    <li><a href="/tags/Konig定理/">Konig定理</a><small>1</small></li>
+  
+    <li><a href="/tags/Kosaraju/">Kosaraju</a><small>1</small></li>
+  
+    <li><a href="/tags/Kruskal/">Kruskal</a><small>5</small></li>
+  
+    <li><a href="/tags/Kuhn-Munkres/">Kuhn-Munkres</a><small>1</small></li>
+  
+    <li><a href="/tags/K短路/">K短路</a><small>1</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>2</small></li>
+  
+    <li><a href="/tags/LCS/">LCS</a><small>2</small></li>
+  
+    <li><a href="/tags/LIS/">LIS</a><small>4</small></li>
+  
+    <li><a href="/tags/Lambda/">Lambda</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/LoveLive/">LoveLive</a><small>1</small></li>
+  
+    <li><a href="/tags/Mac/">Mac</a><small>1</small></li>
+  
+    <li><a href="/tags/PB/">PB</a><small>1</small></li>
+  
+    <li><a href="/tags/Prim/">Prim</a><small>8</small></li>
+  
+    <li><a href="/tags/SAP/">SAP</a><small>6</small></li>
+  
+    <li><a href="/tags/SLF/">SLF</a><small>1</small></li>
+  
+    <li><a href="/tags/SPFA/">SPFA</a><small>11</small></li>
+  
+    <li><a href="/tags/SSH/">SSH</a><small>1</small></li>
+  
+    <li><a href="/tags/ST3/">ST3</a><small>1</small></li>
+  
+    <li><a href="/tags/Stoer-Wagner/">Stoer-Wagner</a><small>2</small></li>
+  
+    <li><a href="/tags/TF-IDF/">TF-IDF</a><small>1</small></li>
+  
+    <li><a href="/tags/Tarjan/">Tarjan</a><small>8</small></li>
+  
+    <li><a href="/tags/Trie/">Trie</a><small>2</small></li>
+  
+    <li><a href="/tags/WA2/">WA2</a><small>1</small></li>
+  
+    <li><a href="/tags/WebBrowser/">WebBrowser</a><small>2</small></li>
+  
+    <li><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li><a href="/tags/disqus/">disqus</a><small>1</small></li>
+  
+    <li><a href="/tags/github/">github</a><small>3</small></li>
+  
+    <li><a href="/tags/hash/">hash</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>2</small></li>
+  
+    <li><a href="/tags/hook/">hook</a><small>1</small></li>
+  
+    <li><a href="/tags/json/">json</a><small>1</small></li>
+  
+    <li><a href="/tags/k叉树/">k叉树</a><small>1</small></li>
+  
+    <li><a href="/tags/lazy/">lazy</a><small>2</small></li>
+  
+    <li><a href="/tags/log/">log</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/scanf/">scanf</a><small>1</small></li>
+  
+    <li><a href="/tags/table/">table</a><small>1</small></li>
+  
+    <li><a href="/tags/中毒/">中毒</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>6</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/二分图匹配/">二分图匹配</a><small>14</small></li>
+  
+    <li><a href="/tags/二分图多重匹配/">二分图多重匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/二叉树/">二叉树</a><small>2</small></li>
+  
+    <li><a href="/tags/二进制/">二进制</a><small>2</small></li>
+  
+    <li><a href="/tags/位运算/">位运算</a><small>1</small></li>
+  
+    <li><a href="/tags/全局最小割/">全局最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/前缀和/">前缀和</a><small>2</small></li>
+  
+    <li><a href="/tags/割点/">割点</a><small>2</small></li>
+  
+    <li><a href="/tags/割边/">割边</a><small>2</small></li>
+  
+    <li><a href="/tags/匈牙利算法/">匈牙利算法</a><small>2</small></li>
+  
+    <li><a href="/tags/双连通分量/">双连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/可行流/">可行流</a><small>3</small></li>
+  
+    <li><a href="/tags/哈密顿回路/">哈密顿回路</a><small>2</small></li>
+  
+    <li><a href="/tags/哈尔滨/">哈尔滨</a><small>1</small></li>
+  
+    <li><a href="/tags/图论/">图论</a><small>2</small></li>
+  
+    <li><a href="/tags/基本不等式/">基本不等式</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>1</small></li>
+  
+    <li><a href="/tags/多重背包/">多重背包</a><small>1</small></li>
+  
+    <li><a href="/tags/大整数/">大整数</a><small>1</small></li>
+  
+    <li><a href="/tags/字符串/">字符串</a><small>5</small></li>
+  
+    <li><a href="/tags/差分约束/">差分约束</a><small>7</small></li>
+  
+    <li><a href="/tags/带花树匹配/">带花树匹配</a><small>2</small></li>
+  
+    <li><a href="/tags/平面图/">平面图</a><small>1</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>18</small></li>
+  
+    <li><a href="/tags/康托展开/">康托展开</a><small>2</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>2</small></li>
+  
+    <li><a href="/tags/强连通分量/">强连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/当前弧/">当前弧</a><small>2</small></li>
+  
+    <li><a href="/tags/微博/">微博</a><small>1</small></li>
+  
+    <li><a href="/tags/快速乘法/">快速乘法</a><small>1</small></li>
+  
+    <li><a href="/tags/快速幂/">快速幂</a><small>1</small></li>
+  
+    <li><a href="/tags/总结/">总结</a><small>1</small></li>
+  
+    <li><a href="/tags/扫描线/">扫描线</a><small>3</small></li>
+  
+    <li><a href="/tags/拆边/">拆边</a><small>1</small></li>
+  
+    <li><a href="/tags/拓扑排序/">拓扑排序</a><small>3</small></li>
+  
+    <li><a href="/tags/按键精灵/">按键精灵</a><small>1</small></li>
+  
+    <li><a href="/tags/排序/">排序</a><small>1</small></li>
+  
+    <li><a href="/tags/搜索/">搜索</a><small>5</small></li>
+  
+    <li><a href="/tags/数学/">数学</a><small>11</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>5</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>4</small></li>
+  
+    <li><a href="/tags/无向图/">无向图</a><small>1</small></li>
+  
+    <li><a href="/tags/无源汇/">无源汇</a><small>3</small></li>
+  
+    <li><a href="/tags/最优匹配/">最优匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/最大匹配/">最大匹配</a><small>1</small></li>
+  
+    <li><a href="/tags/最大团/">最大团</a><small>1</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>17</small></li>
+  
+    <li><a href="/tags/最大独立集/">最大独立集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>3</small></li>
+  
+    <li><a href="/tags/最小支配集/">最小支配集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小树形图/">最小树形图</a><small>1</small></li>
+  
+    <li><a href="/tags/最小流/">最小流</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点权覆盖/">最小点权覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点覆盖/">最小点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小环/">最小环</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生成树/">最小生成树</a><small>15</small></li>
+  
+    <li><a href="/tags/最小生成森林/">最小生成森林</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生生成树/">最小生生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最小路径覆盖/">最小路径覆盖</a><small>2</small></li>
+  
+    <li><a href="/tags/最小顶点覆盖/">最小顶点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最短距离/">最短距离</a><small>1</small></li>
+  
+    <li><a href="/tags/最短路/">最短路</a><small>21</small></li>
+  
+    <li><a href="/tags/最短路径/">最短路径</a><small>3</small></li>
+  
+    <li><a href="/tags/有上下界/">有上下界</a><small>4</small></li>
+  
+    <li><a href="/tags/有向图/">有向图</a><small>1</small></li>
+  
+    <li><a href="/tags/有源汇/">有源汇</a><small>2</small></li>
+  
+    <li><a href="/tags/杨辉三角/">杨辉三角</a><small>2</small></li>
+  
+    <li><a href="/tags/枚举/">枚举</a><small>5</small></li>
+  
+    <li><a href="/tags/染色/">染色</a><small>1</small></li>
+  
+    <li><a href="/tags/栈/">栈</a><small>1</small></li>
+  
+    <li><a href="/tags/树/">树</a><small>2</small></li>
+  
+    <li><a href="/tags/树状数组/">树状数组</a><small>15</small></li>
+  
+    <li><a href="/tags/树的直径/">树的直径</a><small>1</small></li>
+  
+    <li><a href="/tags/概率/">概率</a><small>2</small></li>
+  
+    <li><a href="/tags/次小生成树/">次小生成树</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉回路/">欧拉回路</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉路径/">欧拉路径</a><small>1</small></li>
+  
+    <li><a href="/tags/混合图欧拉回路/">混合图欧拉回路</a><small>1</small></li>
+  
+    <li><a href="/tags/滚动数组/">滚动数组</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/环路/">环路</a><small>1</small></li>
+  
+    <li><a href="/tags/相似性/">相似性</a><small>1</small></li>
+  
+    <li><a href="/tags/离散化/">离散化</a><small>3</small></li>
+  
+    <li><a href="/tags/离线/">离线</a><small>2</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>18</small></li>
+  
+    <li><a href="/tags/组合/">组合</a><small>1</small></li>
+  
+    <li><a href="/tags/缩点/">缩点</a><small>4</small></li>
+  
+    <li><a href="/tags/背包/">背包</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+    <li><a href="/tags/自制音速/">自制音速</a><small>1</small></li>
+  
+    <li><a href="/tags/表达式/">表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算几何/">计算几何</a><small>2</small></li>
+  
+    <li><a href="/tags/记忆化搜索/">记忆化搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/负环/">负环</a><small>1</small></li>
+  
+    <li><a href="/tags/贪心/">贪心</a><small>13</small></li>
+  
+    <li><a href="/tags/费用流/">费用流</a><small>9</small></li>
+  
+    <li><a href="/tags/迭代加深搜索/">迭代加深搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/迷宫/">迷宫</a><small>1</small></li>
+  
+    <li><a href="/tags/逆序数/">逆序数</a><small>1</small></li>
+  
+    <li><a href="/tags/链式前向星/">链式前向星</a><small>2</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/雪菜/">雪菜</a><small>1</small></li>
+  
+    <li><a href="/tags/静态邻接表/">静态邻接表</a><small>2</small></li>
+  
+    <li><a href="/tags/预科/">预科</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Erona
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'erona';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

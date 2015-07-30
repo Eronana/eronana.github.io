@@ -1,0 +1,916 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DP | Erona’s Blog</title>
+  <meta name="author" content="Erona">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Erona’s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Erona’s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e4bb2e6fc8fabe451c4ce05a400dfc2b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Erona’s Blog</a></h1>
+  <h2><a href="/">GOD&#39;S IN HIS HEAVEN,ALL&#39;S RIGHT WITH THE WORLD</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">DP</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-05-12T13:28:23.000Z"><a href="/2015/05/12/CF540D-Bad-Luck-Island/">May 12 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/05/12/CF540D-Bad-Luck-Island/">CF540D Bad Luck Island</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>The Bad Luck Island有三个部落:石头,剪刀,布<br>每两个人碰到的概率是相同的<br>当石头部落的人碰到剪刀部落的人,剪刀部落的就会被石头部落的杀死<br>剪刀和布,布和石头也如此<br>于是很显然,经过足够多的碰面后,最终会剩下一个部落<br>给出三个部落的人数,求出这三个部落活到最后的概率</p>
+<p>##解题思路<br>先采用分治的思想,缩小问题规模<br>于是{r,s,p}=<br>    布碰到石头的概率*{r-1,s,p}+<br>    石头碰到剪刀的概率*{r,s-1,p}+<br>    剪刀碰到布的概率*{r,s,p-1}<br>边界情况是,当某部落人数为0时,某一部落获胜的概率就是1<br>两个部落相遇的概率就是这两个部落的总人数/三个部落的总人数<br>实现上,写成dfs的形式的记忆化搜搜即可(其实是我不擅长写for形式的DP)</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/05/12/CF540D-Bad-Luck-Island/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-01T02:33:49.000Z"><a href="/2015/03/01/CF518D-Ilya-and-Escalator/">Mar 1 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/01/CF518D-Ilya-and-Escalator/">CF518D Ilya and Escalator</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>有n个人排队上电梯<br>每秒钟,最前面的人上电梯的概率为p<br>求t秒后,电梯上人数的期望为多少</p>
+<p>##解题思路<br>用DP来解本题</p>
+<p>##解法1<br>令dp[i][j]为前i秒前j个人在电梯上的概率<br>则对于第i秒有两种可能<br>第i-1秒就有j个人在电梯上了,于是第i秒,第j+1个人不能上去<br>第i-1秒有j-1个人在电梯上,于是第i秒,第j个人必须上去<br>于是dp[i][j]=dp[i-1][j]*(1-p)+dp[i-1][j-1]<em>p<br>方程有了,但是边界情况略麻烦<br>首先第0秒肯定没人上电梯,于是dp[0][0]=1<br>然后第i秒没人上电梯的概率,为i-1秒没人上电梯的概率\</em>第i秒也没人上电梯的概率<br>于是dp[i][0]=dp[i-1][0]*(1-p)<br>DP求完了,还要再扫一遍求期望<br>t秒上去1个人的概率*1,t秒上去2个人的概率*2,...,t秒上去n个人的概率*n</p>
+<p>##解法2<br>上一种解法略麻烦,不但要处理边界清开,最后还得扫一遍<br>于是我们需要改进dp的含义<br>令dp[i][j]为前i秒前j个人在电梯上的人数的期望<br>对于第i秒,有两种可能<br>如果没有上电梯,则期望为dp[i-1][j]*(1-p)<br>如果有人上电梯,则期望为dp([i-1][j-1]+1)*p<br>于是dp[i][j]=dp[i-1][j]*(1-p)+dp([i-1][j-1]+1)*p<br>答案为dp[t][n]</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/01/CF518D-Ilya-and-Escalator/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-15T12:47:33.000Z"><a href="/2015/02/15/NOIP2008T3-传纸条/">Feb 15 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/15/NOIP2008T3-传纸条/">NOIP2008T3 传纸条</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>从矩阵的左上角走到右下角,再走回左上角<br>每个点只能经过一次,使所有经过的数的和最大</p>
+<p>##解题思路<br>基本上可以说是由矩阵取数的加强版,所以用DP即可<br>不过我DP很弱,不会用DP做<br>于是就把这题当做POJ3422的简化版,用费用流水过了<br>建图方式:<br>每个点拆为a和a&#39;,a向a&#39;连边,容量1,费用为改点的数<br>每个点向下,向右连边,容量1,费用0<br>源点连向起点的右方和下方,容量1,费用0<br>终点的上方和左方连向汇点,容量1,费用0<br>然后求最大费用最大流即可</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/15/NOIP2008T3-传纸条/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-11T13:40:26.000Z"><a href="/2015/02/11/POJ1080-Human-Gene-Functions/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ1080-Human-Gene-Functions/">POJ1080 Human Gene Functions</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>给出两个DNA序列,找出使总分最大的拆分方式<br>没对序列的得分见下表<br><img src="http://poj.org/images/1080/1080_1.gif" alt=""><br>AGTGATG和GTTAG可以拆成这样<br>AGTGATG<br>-GTTA-G<br>得分为(-3)+5+5+(-2)+(-3)+5+(-3)+5=9<br>也可以拆成这样<br>AGTGATG<br>-GTTA-G<br>得分为(-3)+5+5+(-2)+5+(-1) +5=14</p>
+<p>##解题思路<br>看起来,似乎有点像LCS<br>其实就是花样LCS<br>dp[i][j]的意义可以直接类比LCS<br>dp[i][j]为序列s1前i个字符和序列s2前j个字符的最大得分<br>然后状态转移方程也可以类比,共三种情况<br>dp[i-1][j-1]+score[s1[i]][s2[j]] //选取s1[i]和s2[j]<br>dp[i-1][j]+score[s1[i]][&#39;-&#39;] //选取s1[i],跳过s2[j]<br>dp[i][j-1]+score[&#39;-&#39;][s2[j]] //跳过s1[i],选取s2[j]<br>取最大值即可<br>然后还有个细节问题,LCS初始化是,直接初始为0即可<br>不过本题比较特殊,因为字符可以和&#39;-&#39;构成合法分数<br>所以需要初始一下dp[0][x]和dp[x][0],详见代码</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ1080-Human-Gene-Functions/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-11T13:04:20.000Z"><a href="/2015/02/11/POJ1159-Palindrome/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ1159-Palindrome/">POJ1159 Palindrome</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>给出一个字符串,求最少增加多少个字符能变成回文串</p>
+<p>##解题思路<br>先求原串和反串的LCS(Longest Common Subsequence,最长公共子序列)<br>结果明显是原串的最长子回文串<br>若要整串都成为回文串,则需要添加与省下字符等量的字符与其对应<br>于是字符串长度-原串和反串的LCS便是答案</p>
+<p>###LCS<br>求LCS的方法为DP<br>dp[i][j]表示s1的前i个字符和s2的前j个字符的LCS<br>若s1[i]==s2[j],很容易得出dp[i][j]=dp[i-1][j-1]+1<br>若s1[i]!=s2[j],有两种情况:跳过s1[i]或跳过s2[j]<br>于是dp[i][j]=max(dp[i-1][j],dp[i][j-1])<br>实现上,由于本题数据了略大,直接开二维数组会MLE<br>于是需要用滚动数组<br>由于LCS问题的DP不同于背包,所以没有纯粹的一维滚动数组的做法<br>于是开dp[2][N],然后取模手动滚动</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ1159-Palindrome/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-11T07:15:42.000Z"><a href="/2015/02/11/POJ3176-Cow-Bowling/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ3176-Cow-Bowling/">POJ3176 Cow Bowling</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">        7&#10;       *&#10;      3   8&#10;     *&#10;    8   1   0&#10;     *&#10;  2   7   4   4&#10;     *&#10;4   5   2   6   5</span><br></pre></td></tr></table></figure></p>
+<p>求最大的,从上面走到下面所经过的数字的和<br>上面的最大的和的路径,已经用个*标出</p>
+<p>##解题思路<br>dp[i][j]为到达a[i][j]的最大值<br>则dp[i][j]=max(dp[i-1][j-1],dp[i-1][j])=a[i][j]<br>每个点,都能由其上面的两个点到达,于是取最大值即可<br>不过这样的空间复杂度是O(n^2),可以优化一下<br>优化方法同01背包一样,滚动数组<br>于是方向也和01背包一样,第二层循环要从后往前推<br>PS:本题代码还可直接AC POJ1163</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ3176-Cow-Bowling/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-11T06:02:32.000Z"><a href="/2015/02/11/POJ2533-Longest-Ordered-Subsequence-POJ3903-Stock-Exchange/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ2533-Longest-Ordered-Subsequence-POJ3903-Stock-Exchange/">POJ2533 Longest Ordered Subsequence&amp;&amp;POJ3903 Stock Exchange</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>求最长上升子序列</p>
+<p>##解题思路<br>这两道题其实是一道题<br>不过POJ2533用O(n^2)的方法就能过<br>而POJ3903则要求O(nlogn)</p>
+<p>###O(n^2)的方法<br>dp[i]为从1到i的最长上升子序列<br>于是对于任意j&lt;i,如果a[j]&lt;a[i],则表示a[i]可以接在a[j]的后面构成上升子序列<br>构成的上升子序列长度为dp[j]+1<br>于是就有状态转移方程dp[i]=min(dp[i],dp[j-1]),j&lt;i&amp;&amp;a[j]&lt;a[i]<br>两层循环,时间复杂度自然是O(n^2)</p>
+<p>###O(nlogn)的方法<br>思路和O(n^2)的方法不同<br>d[i]为长度为i的上升子序列的最后一个元素的值<br>lis为LIS长度,初始为0<br>逐个读入ai,先判断d<a href="当前最长上升子序列的最后一个元素">lis</a>和ai的关系<br>如果ai&gt;d[lis],则可以直接把ai接在后面<br>于是lis++,d[lis]=ai//这里的lis已经自增过了<br>否则的话,我们想办法把ai接在其他的上升子序列中<br>接在哪里呢,显然是接在满足d[x]&lt;ai的前提下,x尽可能大得子序列后面<br>于是扫一遍d即可,不过d很明显是有序的(子序列长度更大,最后一个元素(最大的)也必然更大)<br>所以我们可以使用二分查找来确定x<br>找到x后,把ai接在后面,由于不可能增加当前lis的长度(执行到这里已经是之前else的)<br>所以只维护d即可,d[x+1]=a<br>这样扫完a后,lis便是答案了</p>
+<p>##实现上的细节<br>初始化很重要<br>对于O(n^2)的方法来说,dp初始为1,max(dp)就是结果<br>若dp初始为0,则max(dp)+1是结果<br>对于O(nlogn)的方法来说,d应该初始为-INF<br>以正常思维来说,会直接出示为0,但是如果出现&lt;=0的元素是,得出的结果就跪了<br>然后是二分,二分可以手写,也可以使用STL中得lower_bound<br>lower_bound(l,r,a)是STL提供的通用的二分搜索函数<br>返回在[l,r]范围内,第一个大于等于a的元素指针<br>于是用lower_bound的话,代码会十分简洁</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ2533-Longest-Ordered-Subsequence-POJ3903-Stock-Exchange/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-10T16:37:49.000Z"><a href="/2015/02/11/POJ1260-Pearls/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ1260-Pearls/">POJ1260 Pearls</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>有c种珍珠..等级递增,等级越高越好<br>第i种珍珠需要买ai个,售价pi<br>购买珍珠的价格比较奇葩,如果要购买x个售价为p的珍珠,你需要花(x+10)*p块钱<br>你可以购买品质更高的珍珠,来代替品质不好的珍珠<br>求最少花多少钱<br>比如说样例<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3&#10;1 10 //(1+10)*10=110&#10;1 11 //(1+10)*11=121&#10;100 12 //(100+10)*12=1320&#10;//&#20110;&#26159;&#30452;&#25509;&#36141;&#20080;,&#24635;&#35745;&#33457;&#36153;110+121+1320=1551&#10;//&#20294;&#26159;&#26368;&#23569;&#30340;&#33457;&#36153;&#26159;&#20080;102&#20010;&#26368;&#39640;&#32423;&#30340;&#29645;&#29664;..&#33457;&#36153;(102+10)*12=1344</span><br></pre></td></tr></table></figure></p>
+<p>##解题思路<br>这题比较简单,很容易想到贪心策略<br>即尝试用高品质的珍珠替代低品质的<br>由于这种替代的性质是可传递的<br>所以对于每种珍珠,都尝试用其代替低品质的即可<br>也就是,考虑第i种珍珠的话<br>尝试1~i种,2~i种...i-1~i种,i种,都买第i种<br>dp[i]=min(dp[j]+(sum(a[j+1]...a[i])+10)*p[i])<br>sum求和,可以直接用前缀和数组,以O(1)的方法实现</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ1260-Pearls/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-10T16:26:14.000Z"><a href="/2015/02/11/POJ1836-Alignment/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ1836-Alignment/">POJ1836 Alignment</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>给出一个浮点型的序列,求最少删除多少个数,能使任意一个数都能大于最左边的或最右边的数</p>
+<p>##解题思路<br>其实就是LIS(最长上升子序列)嘛<br>不过还有些不同的的地方,就是这个是两头的<br>于是我们求两个LIS<br>从左边求一次,记录于dp1;再从右边求一次,记录于dp2<br>最后枚举两个端点s1,s2<br>求出最大的dp1[s1]+dp2[s2]<br>最后再用总数n减去即可</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ1836-Alignment/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-10T16:06:04.000Z"><a href="/2015/02/11/POJ3267-The-Cow-Lexicon/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/POJ3267-The-Cow-Lexicon/">POJ3267 The Cow Lexicon</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>给出一个字符串和一个单词表<br>求字符串最少删除多少个字符,可以由单词表中的单词组成<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6 10&#10;browndcodw&#10;cow&#10;milk&#10;white&#10;black&#10;brown&#10;farmer</span><br></pre></td></tr></table></figure></p>
+<p>browndcodw去掉两个d变成browncow,于是答案为2</p>
+<p>##解题思路<br>设dp[i]为从第i个字符到最后的子串,最少删除的个数<br>dp分两种情况<br>第一种,删掉第i个字符,于是dp[i]可直接由dp[i+1]得出,即<br>dp[i]=dp[i+1]+1<br>第二种<br>如果第i个字符和词典中某个单词的第一个字符相等<br>并且从i开始的字符串中,可以删掉某些字符组成该单词,则<br>dp[i]=min(dp[i],dp[i+num]+num-i-strlen(word))<br>num为可删掉字符组成字符word的长度<br>于是从dp[i+num]算起,加上num的长度,再减去字符word的长度即可<br>-i是由于从后往前推,需要减掉i修正,这个实现时自然而然就清楚了</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/11/POJ3267-The-Cow-Lexicon/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+  
+    <a href="/tags/DP/page/2/" class="alignright next">下一頁</a>
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form>
+    <input type="search" name="q" id ="search-input" results="0" placeholder="搜尋">
+  </form>
+</div>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','CpLu8jR2_2yNcZMFkPcb');
+</script>
+
+  
+<div class="widget tag">
+  <h3 class="title">分類</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/ACM/">ACM</a><small>290</small></li>
+  
+    <li><a href="/categories/Coding/">Coding</a><small>10</small></li>
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>7</small></li>
+  
+    <li><a href="/categories/Life/">Life</a><small>8</small></li>
+  
+    <li><a href="/categories/Tools/">Tools</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/30/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/07/CF499C-Crazy-Town/">CF499C Crazy Town</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/17/省赛总结/">省赛总结</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU4081-Qin-Shi-Huang-s-National-Road-System/">HDU4081 Qin Shi Huang&#39;s National Road System</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF293A-Weird-Game/">CF293A Weird Game</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF292B-Network-Topology/">CF292B Network Topology</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF291B-Command-Line-Arguments/">CF291B Command Line Arguments</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544D-Destroying-Roads/">CF544D Destroying Roads</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/2-SAT/">2-SAT</a><small>4</small></li>
+  
+    <li><a href="/tags/A/">A*</a><small>1</small></li>
+  
+    <li><a href="/tags/BASIC/">BASIC</a><small>1</small></li>
+  
+    <li><a href="/tags/BFS/">BFS</a><small>9</small></li>
+  
+    <li><a href="/tags/C/">C#</a><small>2</small></li>
+  
+    <li><a href="/tags/C-11/">C++11</a><small>1</small></li>
+  
+    <li><a href="/tags/CCF/">CCF</a><small>5</small></li>
+  
+    <li><a href="/tags/CF/">CF</a><small>1</small></li>
+  
+    <li><a href="/tags/DAG/">DAG</a><small>1</small></li>
+  
+    <li><a href="/tags/DFS/">DFS</a><small>16</small></li>
+  
+    <li><a href="/tags/DP/">DP</a><small>19</small></li>
+  
+    <li><a href="/tags/Dijkstra/">Dijkstra</a><small>11</small></li>
+  
+    <li><a href="/tags/Dinic/">Dinic</a><small>1</small></li>
+  
+    <li><a href="/tags/Facebook/">Facebook</a><small>1</small></li>
+  
+    <li><a href="/tags/Floyd/">Floyd</a><small>4</small></li>
+  
+    <li><a href="/tags/GAP/">GAP</a><small>1</small></li>
+  
+    <li><a href="/tags/GZIP/">GZIP</a><small>1</small></li>
+  
+    <li><a href="/tags/HTTP/">HTTP</a><small>1</small></li>
+  
+    <li><a href="/tags/Hash/">Hash</a><small>1</small></li>
+  
+    <li><a href="/tags/Hopcroft-Karp/">Hopcroft-Karp</a><small>1</small></li>
+  
+    <li><a href="/tags/Konig定理/">Konig定理</a><small>1</small></li>
+  
+    <li><a href="/tags/Kosaraju/">Kosaraju</a><small>1</small></li>
+  
+    <li><a href="/tags/Kruskal/">Kruskal</a><small>5</small></li>
+  
+    <li><a href="/tags/Kuhn-Munkres/">Kuhn-Munkres</a><small>1</small></li>
+  
+    <li><a href="/tags/K短路/">K短路</a><small>1</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>2</small></li>
+  
+    <li><a href="/tags/LCS/">LCS</a><small>2</small></li>
+  
+    <li><a href="/tags/LIS/">LIS</a><small>4</small></li>
+  
+    <li><a href="/tags/Lambda/">Lambda</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/LoveLive/">LoveLive</a><small>1</small></li>
+  
+    <li><a href="/tags/Mac/">Mac</a><small>1</small></li>
+  
+    <li><a href="/tags/PB/">PB</a><small>1</small></li>
+  
+    <li><a href="/tags/Prim/">Prim</a><small>8</small></li>
+  
+    <li><a href="/tags/SAP/">SAP</a><small>6</small></li>
+  
+    <li><a href="/tags/SLF/">SLF</a><small>1</small></li>
+  
+    <li><a href="/tags/SPFA/">SPFA</a><small>11</small></li>
+  
+    <li><a href="/tags/SSH/">SSH</a><small>1</small></li>
+  
+    <li><a href="/tags/ST3/">ST3</a><small>1</small></li>
+  
+    <li><a href="/tags/Stoer-Wagner/">Stoer-Wagner</a><small>2</small></li>
+  
+    <li><a href="/tags/TF-IDF/">TF-IDF</a><small>1</small></li>
+  
+    <li><a href="/tags/Tarjan/">Tarjan</a><small>8</small></li>
+  
+    <li><a href="/tags/Trie/">Trie</a><small>2</small></li>
+  
+    <li><a href="/tags/WA2/">WA2</a><small>1</small></li>
+  
+    <li><a href="/tags/WebBrowser/">WebBrowser</a><small>2</small></li>
+  
+    <li><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li><a href="/tags/disqus/">disqus</a><small>1</small></li>
+  
+    <li><a href="/tags/github/">github</a><small>3</small></li>
+  
+    <li><a href="/tags/hash/">hash</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>2</small></li>
+  
+    <li><a href="/tags/hook/">hook</a><small>1</small></li>
+  
+    <li><a href="/tags/json/">json</a><small>1</small></li>
+  
+    <li><a href="/tags/k叉树/">k叉树</a><small>1</small></li>
+  
+    <li><a href="/tags/lazy/">lazy</a><small>2</small></li>
+  
+    <li><a href="/tags/log/">log</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/scanf/">scanf</a><small>1</small></li>
+  
+    <li><a href="/tags/table/">table</a><small>1</small></li>
+  
+    <li><a href="/tags/中毒/">中毒</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>6</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/二分图匹配/">二分图匹配</a><small>14</small></li>
+  
+    <li><a href="/tags/二分图多重匹配/">二分图多重匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/二叉树/">二叉树</a><small>2</small></li>
+  
+    <li><a href="/tags/二进制/">二进制</a><small>2</small></li>
+  
+    <li><a href="/tags/位运算/">位运算</a><small>1</small></li>
+  
+    <li><a href="/tags/全局最小割/">全局最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/前缀和/">前缀和</a><small>2</small></li>
+  
+    <li><a href="/tags/割点/">割点</a><small>2</small></li>
+  
+    <li><a href="/tags/割边/">割边</a><small>2</small></li>
+  
+    <li><a href="/tags/匈牙利算法/">匈牙利算法</a><small>2</small></li>
+  
+    <li><a href="/tags/双连通分量/">双连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/可行流/">可行流</a><small>3</small></li>
+  
+    <li><a href="/tags/哈密顿回路/">哈密顿回路</a><small>2</small></li>
+  
+    <li><a href="/tags/哈尔滨/">哈尔滨</a><small>1</small></li>
+  
+    <li><a href="/tags/图论/">图论</a><small>2</small></li>
+  
+    <li><a href="/tags/基本不等式/">基本不等式</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>1</small></li>
+  
+    <li><a href="/tags/多重背包/">多重背包</a><small>1</small></li>
+  
+    <li><a href="/tags/大整数/">大整数</a><small>1</small></li>
+  
+    <li><a href="/tags/字符串/">字符串</a><small>5</small></li>
+  
+    <li><a href="/tags/差分约束/">差分约束</a><small>7</small></li>
+  
+    <li><a href="/tags/带花树匹配/">带花树匹配</a><small>2</small></li>
+  
+    <li><a href="/tags/平面图/">平面图</a><small>1</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>18</small></li>
+  
+    <li><a href="/tags/康托展开/">康托展开</a><small>2</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>2</small></li>
+  
+    <li><a href="/tags/强连通分量/">强连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/当前弧/">当前弧</a><small>2</small></li>
+  
+    <li><a href="/tags/微博/">微博</a><small>1</small></li>
+  
+    <li><a href="/tags/快速乘法/">快速乘法</a><small>1</small></li>
+  
+    <li><a href="/tags/快速幂/">快速幂</a><small>1</small></li>
+  
+    <li><a href="/tags/总结/">总结</a><small>1</small></li>
+  
+    <li><a href="/tags/扫描线/">扫描线</a><small>3</small></li>
+  
+    <li><a href="/tags/拆边/">拆边</a><small>1</small></li>
+  
+    <li><a href="/tags/拓扑排序/">拓扑排序</a><small>3</small></li>
+  
+    <li><a href="/tags/按键精灵/">按键精灵</a><small>1</small></li>
+  
+    <li><a href="/tags/排序/">排序</a><small>1</small></li>
+  
+    <li><a href="/tags/搜索/">搜索</a><small>5</small></li>
+  
+    <li><a href="/tags/数学/">数学</a><small>11</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>5</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>4</small></li>
+  
+    <li><a href="/tags/无向图/">无向图</a><small>1</small></li>
+  
+    <li><a href="/tags/无源汇/">无源汇</a><small>3</small></li>
+  
+    <li><a href="/tags/最优匹配/">最优匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/最大匹配/">最大匹配</a><small>1</small></li>
+  
+    <li><a href="/tags/最大团/">最大团</a><small>1</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>17</small></li>
+  
+    <li><a href="/tags/最大独立集/">最大独立集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>3</small></li>
+  
+    <li><a href="/tags/最小支配集/">最小支配集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小树形图/">最小树形图</a><small>1</small></li>
+  
+    <li><a href="/tags/最小流/">最小流</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点权覆盖/">最小点权覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点覆盖/">最小点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小环/">最小环</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生成树/">最小生成树</a><small>15</small></li>
+  
+    <li><a href="/tags/最小生成森林/">最小生成森林</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生生成树/">最小生生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最小路径覆盖/">最小路径覆盖</a><small>2</small></li>
+  
+    <li><a href="/tags/最小顶点覆盖/">最小顶点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最短距离/">最短距离</a><small>1</small></li>
+  
+    <li><a href="/tags/最短路/">最短路</a><small>21</small></li>
+  
+    <li><a href="/tags/最短路径/">最短路径</a><small>3</small></li>
+  
+    <li><a href="/tags/有上下界/">有上下界</a><small>4</small></li>
+  
+    <li><a href="/tags/有向图/">有向图</a><small>1</small></li>
+  
+    <li><a href="/tags/有源汇/">有源汇</a><small>2</small></li>
+  
+    <li><a href="/tags/杨辉三角/">杨辉三角</a><small>2</small></li>
+  
+    <li><a href="/tags/枚举/">枚举</a><small>5</small></li>
+  
+    <li><a href="/tags/染色/">染色</a><small>1</small></li>
+  
+    <li><a href="/tags/栈/">栈</a><small>1</small></li>
+  
+    <li><a href="/tags/树/">树</a><small>2</small></li>
+  
+    <li><a href="/tags/树状数组/">树状数组</a><small>15</small></li>
+  
+    <li><a href="/tags/树的直径/">树的直径</a><small>1</small></li>
+  
+    <li><a href="/tags/概率/">概率</a><small>2</small></li>
+  
+    <li><a href="/tags/次小生成树/">次小生成树</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉回路/">欧拉回路</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉路径/">欧拉路径</a><small>1</small></li>
+  
+    <li><a href="/tags/混合图欧拉回路/">混合图欧拉回路</a><small>1</small></li>
+  
+    <li><a href="/tags/滚动数组/">滚动数组</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/环路/">环路</a><small>1</small></li>
+  
+    <li><a href="/tags/相似性/">相似性</a><small>1</small></li>
+  
+    <li><a href="/tags/离散化/">离散化</a><small>3</small></li>
+  
+    <li><a href="/tags/离线/">离线</a><small>2</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>18</small></li>
+  
+    <li><a href="/tags/组合/">组合</a><small>1</small></li>
+  
+    <li><a href="/tags/缩点/">缩点</a><small>4</small></li>
+  
+    <li><a href="/tags/背包/">背包</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+    <li><a href="/tags/自制音速/">自制音速</a><small>1</small></li>
+  
+    <li><a href="/tags/表达式/">表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算几何/">计算几何</a><small>2</small></li>
+  
+    <li><a href="/tags/记忆化搜索/">记忆化搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/负环/">负环</a><small>1</small></li>
+  
+    <li><a href="/tags/贪心/">贪心</a><small>13</small></li>
+  
+    <li><a href="/tags/费用流/">费用流</a><small>9</small></li>
+  
+    <li><a href="/tags/迭代加深搜索/">迭代加深搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/迷宫/">迷宫</a><small>1</small></li>
+  
+    <li><a href="/tags/逆序数/">逆序数</a><small>1</small></li>
+  
+    <li><a href="/tags/链式前向星/">链式前向星</a><small>2</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/雪菜/">雪菜</a><small>1</small></li>
+  
+    <li><a href="/tags/静态邻接表/">静态邻接表</a><small>2</small></li>
+  
+    <li><a href="/tags/预科/">预科</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Erona
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'erona';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

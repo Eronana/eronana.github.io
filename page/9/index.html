@@ -1,0 +1,908 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第 9 頁 | Erona’s Blog</title>
+  <meta name="author" content="Erona">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Erona’s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Erona’s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e4bb2e6fc8fabe451c4ce05a400dfc2b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Erona’s Blog</a></h1>
+  <h2><a href="/">GOD&#39;S IN HIS HEAVEN,ALL&#39;S RIGHT WITH THE WORLD</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-21T11:23:09.000Z"><a href="/2015/03/21/POJ3592-Instantaneous-Transference/">Mar 21 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/21/POJ3592-Instantaneous-Transference/">POJ3592 Instantaneous Transference</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>1 //一组数据<br>2 2 //下面是2*2的地图<br>11 //数字代表该点的矿物数量<br>1* //*代表传送点<br>0 0 //传送点的目标坐标<br>地图中可能有多个传送点<br>地图上还可能有#,表示不能进入的区域<br>从左上角开始走,只能向下走或向右走<br>到达的点上的的矿物会被取走<br>到达传送点,可以选择传送到目标坐标,或者继续向下或向右走<br>问最多能挖到多少矿物</p>
+<p>##解题思路<br>如果没有传送点,本题就是一道十分简单的搜索(DP)<br>因为存在传送点,就构成了环路,所以不能直接搜索或DP<br>很容易想到,既然形成了环路,那么环路上的点一定都可以取到,并且到达环路上的任意一点<br>而且多个环路套在一起也是如此,于是很容易就能想到缩点<br>先求出强连通分量,然后把每个分量缩成一点,矿物数量为分量所有点之和<br>缩点后,环路自然消失,可以安心的搜索/DP了</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/21/POJ3592-Instantaneous-Transference/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-21T11:18:54.000Z"><a href="/2015/03/21/CCF集合竞价/">Mar 21 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/21/CCF集合竞价/">CCF集合竞价</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##问题描述<br>　　某股票交易所请你编写一个程序，根据开盘前客户提交的订单来确定某特定股票的开盘价和开盘成交量。<br>　　该程序的输入由很多行构成，每一行为一条记录，记录可能有以下几种：<br>　　1. buy p s 表示一个购买股票的买单，每手出价为p，购买股数为s。<br>　　2. sell p s 表示一个出售股票的卖单，每手出价为p，出售股数为s。<br>　　3. cancel i表示撤销第i行的记录。<br>　　如果开盘价为p0，则系统可以将所有出价至少为p0的买单和所有出价至多为p0的卖单进行匹配。因此，此时的开盘成交量为出价至少为p0的买单的总股数和所有出价至多为p0的卖单的总股数之间的较小值。<br>　　你的程序需要确定一个开盘价，使得开盘成交量尽可能地大。如果有多个符合条件的开盘价，你的程序应当输出最高的那一个。</p>
+<p>##解题思路<br>对价格排序,然后枚举每个价格并利用前缀和(sell)和后缀和(buy)得出当前价格的数量<br>实现上,为了将多个相同价格的记录合并,使用了map进行存储</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/21/CCF集合竞价/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-20T04:34:20.000Z"><a href="/2015/03/20/CCF货物调度/">Mar 20 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/20/CCF货物调度/">CCF货物调度</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题目</p>
+<blockquote>
+<p>问题描述<br>　　某公司要处理一个周期性的物流问题。<br>　　有n个城市，第i个城市在每周的第j(1≤j≤7) 天会生产aij吨某种货物，同时需要消耗bij吨该种货物。已知每周的产量等于消耗量（即aij之和等于bij之和）。<br>　　城市之间有m条道路，第k条道路连接了城市sk和tk。一条道路上运输1吨货物有一个固定的成本ck。道路都可以双向使用。每天运输的货物量没有限制。城市之间的距离并不远，货物可以从任意一个城市运输到任意另一个城市并且在当天到达。<br>　　货物如果在当天没有被消耗掉，就需要存放在仓库里过夜。第i个城市的仓库容量为vi，存放1 吨货物过一夜所需的成本是wi。<br>　　请你计算该公司如果每周循环性地按照一个固定的流程调度货物的话，该公司在最优方案下每周需要为货物的运输和存储消耗多少成本。<br>输入格式<br>　　输入的第一行有两个正整数n和m，即城市的个数和道路的条数。<br>　　接下来有n行，每行包含16个整数，用以描述第i个城市的相关数据。其中第i行包含的数为ai1, ai2, ai3, ai4, ai5, ai6, ai7, bi1, bi2, bi3, bi4, bi5, bi6, bi7, vi, wi。<br>　　接下来有m行，每行包含3个整数，用以描述一条道路的相关数据。其中第k行包含的数为sk, tk和ck。<br>　　输入数据中城市的编号均为1到n之间。输入数据的每行的行首行尾均保证没有空格，两个数之间恰好被一个空格隔开。<br>输出格式<br>　　你只需要输出一个数，即最优方案下每周的支出。<br>样例输入<br>3 3<br>0 0 0 0 5 0 0 0 0 0 0 0 0 0 2 4<br>0 0 0 0 0 0 0 2 0 0 0 0 0 0 2 1<br>0 0 0 0 0 0 0 0 0 3 0 0 0 0 2 5<br>1 2 1<br>1 3 5<br>2 3 1<br>样例输出<br>67<br>样例说明<br>　　城市1 每周五生产5 吨货物，把其中2 吨运到存储费用低廉的城市2 存储，把1 吨运到城市3 存储，剩下的2 吨留在城市1。<br>　　在次周一的时候城市2 会消耗掉存放在那里的2 吨货物。为了节约存储成本，将囤放在城市1 的货物运到城市2 存放。周三再将所有货物运到城市3 以满足该城市的需求。<br>　　在此方案下，每周的运输成本为8，每周的存储成本为59，因此每周的总支出为67。<br>评测用例规模与约定<br>　　对于100%的数据，1≤n≤100，1≤m≤500，0≤aij,bij,vi≤100，1≤wi,ck≤100。</p>
+</blockquote>
+<p>##解题思路<br>先不考虑天,只考虑城市<br>第i个城市,生产ai,消耗bi<br>源点连向i,容量为ai<br>i连向汇点,容量为bi<br>这样1单位流量从源点流向汇点,就表示生产的1吨货物被消耗<br>对于没条路k,sk和tk之间连无向边<br>由于运输的货物量没有限制,所以容量为INF<br>费用为ck<br>到此为止,费用流的雏形已经出来了,剩下的需要把天考虑进去<br>共有7天,于是共有7*n个点<br>对于每天,都按如上的方式建图,但是只是这样,这7天都是独立的,没有联系<br>于是最后需要做的,就是把这7天联系起来,也就是题目中所说的&quot;存放在仓库中过夜&quot;<br>对于每个城市,第i天连向第i+1天,容量为vi,费用为wi<br>特别的第7天要连向第1天,也就是取个模就行了<br>到此为止,建图完毕,直接跑最小费用最大流即可,答案为最小费用<br>实现上,需要对寻找增广路的SPFA算法进行SLF优化<br>虽然效果不是十分的明显,但是不加优化,就会在超时边缘</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/20/CCF货物调度/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T11:04:21.000Z"><a href="/2015/03/17/HDU4687-Boke-and-Tsukkomi/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/HDU4687-Boke-and-Tsukkomi/">HDU4687 Boke and Tsukkomi</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>n个人,m个可行的分组方案<br>由于目的是使分组数最大,所以需要找出毫无用处的组合<br>即在任意最大的分组中,都不存在该分组</p>
+<p>##解题思路<br>首先可以确定的是,这是一个最大匹配问题<br>而且是一般图的带花树匹配<br>由于边数不多,所以可以采用枚举组合的方式<br>先求出原图的最大匹配,然后枚举每条边<br>对于每条边,删除掉与这条边上两点相连的所有边<br>如果这条边在最大匹配上,则删边后的图的最大匹配,一定是原图最大匹配-1<br>反之,如果这条边不在最大匹配上,那么这两个点一点会于其他的点组成更大的匹配<br>删掉这两个点的最大匹配,一定小于原图最大匹配-1</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/HDU4687-Boke-and-Tsukkomi/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T10:56:08.000Z"><a href="/2015/03/17/URAL1099-Work-Scheduling/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/URAL1099-Work-Scheduling/">URAL1099 Work Scheduling</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>有n个保安,若干个可行双人巡逻组合<br>现在需要找到使得分组组多的方案<br>然后没有组合的人将被开除<br>输出被开除的人</p>
+<p>##解题思路<br>乍一看是就是个裸的最大匹配<br>的确是裸的最大匹配,不过并不是二分图匹配<br>因为并没有任何信息可以确定是二分图<br>于是需要使用普通图最大匹配的算法<br>也就是带花树匹配,直接套模板即可</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/URAL1099-Work-Scheduling/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T10:30:12.000Z"><a href="/2015/03/17/HDU3488-Tour/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/HDU3488-Tour/">HDU3488 Tour</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>N个城市,M条单向路<br>你需要找出几个距离总和最短的环路,并且保证这些环路经过每个点一次仅一次</p>
+<p>##解题思路<br>每个点u拆为u和u&#39;<br>对于从u-&gt;v,看成u-v&#39;<br>这样建图就是二分图<br>然后答案就是最小权匹配<br>求匹配,可以保证尽可能的所有点都被边连上,而且权值最小<br>实现上,并不用真正的拆点</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/HDU3488-Tour/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T10:27:15.000Z"><a href="/2015/03/17/HDU2255-奔小康赚大钱/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/HDU2255-奔小康赚大钱/">HDU2255 奔小康赚大钱</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>n个房子,n个人<br>每个人对每个房子的出价都不同<br>问如何分配房子,可使收入最大</p>
+<p>##解题思路<br>人对房子的最优匹配<br>建图套模板即可</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/HDU2255-奔小康赚大钱/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T10:05:57.000Z"><a href="/2015/03/17/HDU3829-Cat-VS-Dog/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/HDU3829-Cat-VS-Dog/">HDU3829 Cat VS Dog</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>有N个狗,M个猫,P个熊孩子<br>每个熊孩子都喜欢一只猫,讨厌一只狗,或者喜欢一只狗,讨厌一只猫<br>你可以带走一些狗和一些猫<br>如果某个熊孩子喜欢的没有被带走,并且讨厌的被带走了,他就会变得happy<br>带走哪些会使happy的熊孩子最多,输出最多的熊孩子的数量</p>
+<p>##解题思路<br>如果A,B两个熊孩子有冲突(A喜欢的B讨厌或A讨厌的B喜欢)<br>就给这两个熊孩子连上边<br>于是问题变为如何选出最多的点,并且这些点之间没有边<br>也就是最大独立集<br>根据题目所给信息,只有喜爱种类不同的熊孩子才会有冲突<br>也就是说,根据所给信息建图,所得的图一定是二分图<br>二分图的最大独立集=顶点数-最大匹配<br>实现上需要注意的是要建无向图,最大匹配/2</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/HDU3829-Cat-VS-Dog/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T09:34:22.000Z"><a href="/2015/03/17/POJ2594-Treasure-Exploration/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/POJ2594-Treasure-Exploration/">POJ2594 Treasure Exploration</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>N个顶点,M条有向边的DAG<br>找出最少的路径,使所有点都在这些路径上<br>并且允许一个点位于多条路径上</p>
+<p>##解题思路<br>如果没有附件条件,本题就是个裸的最小路径覆盖<br>根据无环的特性,可以视为二分图<br>最小路径覆盖=顶点数-最大匹配<br>不过由于附件条件的存在,所以需要做一些特殊的处理<br>直接在原图上跑一遍Floyd<br>这样再求最小路径覆盖时,可以直接跳过已经被覆盖的点</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/POJ2594-Treasure-Exploration/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-17T08:41:27.000Z"><a href="/2015/03/17/HDU1054-Strategic-Game/">Mar 17 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/17/HDU1054-Strategic-Game/">HDU1054 Strategic Game</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>选择最少的点,使所有的边都与所选的点相连<br>也就是最小顶点覆盖</p>
+<p>##解题思路<br>由于是树,没有回路,于是可以看成是二分图<br>二分图的最小顶点覆盖=最大匹配<br>注意建图时要建成无向图,答案要/2</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/17/HDU1054-Strategic-Game/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/page/8/" class="alignleft prev">上一頁</a>
+  
+  
+    <a href="/page/10/" class="alignright next">下一頁</a>
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form>
+    <input type="search" name="q" id ="search-input" results="0" placeholder="搜尋">
+  </form>
+</div>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','CpLu8jR2_2yNcZMFkPcb');
+</script>
+
+  
+<div class="widget tag">
+  <h3 class="title">分類</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/ACM/">ACM</a><small>290</small></li>
+  
+    <li><a href="/categories/Coding/">Coding</a><small>10</small></li>
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>7</small></li>
+  
+    <li><a href="/categories/Life/">Life</a><small>8</small></li>
+  
+    <li><a href="/categories/Tools/">Tools</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/30/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/07/CF499C-Crazy-Town/">CF499C Crazy Town</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/17/省赛总结/">省赛总结</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU4081-Qin-Shi-Huang-s-National-Road-System/">HDU4081 Qin Shi Huang&#39;s National Road System</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF293A-Weird-Game/">CF293A Weird Game</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF292B-Network-Topology/">CF292B Network Topology</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF291B-Command-Line-Arguments/">CF291B Command Line Arguments</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544D-Destroying-Roads/">CF544D Destroying Roads</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/2-SAT/">2-SAT</a><small>4</small></li>
+  
+    <li><a href="/tags/A/">A*</a><small>1</small></li>
+  
+    <li><a href="/tags/BASIC/">BASIC</a><small>1</small></li>
+  
+    <li><a href="/tags/BFS/">BFS</a><small>9</small></li>
+  
+    <li><a href="/tags/C/">C#</a><small>2</small></li>
+  
+    <li><a href="/tags/C-11/">C++11</a><small>1</small></li>
+  
+    <li><a href="/tags/CCF/">CCF</a><small>5</small></li>
+  
+    <li><a href="/tags/CF/">CF</a><small>1</small></li>
+  
+    <li><a href="/tags/DAG/">DAG</a><small>1</small></li>
+  
+    <li><a href="/tags/DFS/">DFS</a><small>16</small></li>
+  
+    <li><a href="/tags/DP/">DP</a><small>19</small></li>
+  
+    <li><a href="/tags/Dijkstra/">Dijkstra</a><small>11</small></li>
+  
+    <li><a href="/tags/Dinic/">Dinic</a><small>1</small></li>
+  
+    <li><a href="/tags/Facebook/">Facebook</a><small>1</small></li>
+  
+    <li><a href="/tags/Floyd/">Floyd</a><small>4</small></li>
+  
+    <li><a href="/tags/GAP/">GAP</a><small>1</small></li>
+  
+    <li><a href="/tags/GZIP/">GZIP</a><small>1</small></li>
+  
+    <li><a href="/tags/HTTP/">HTTP</a><small>1</small></li>
+  
+    <li><a href="/tags/Hash/">Hash</a><small>1</small></li>
+  
+    <li><a href="/tags/Hopcroft-Karp/">Hopcroft-Karp</a><small>1</small></li>
+  
+    <li><a href="/tags/Konig定理/">Konig定理</a><small>1</small></li>
+  
+    <li><a href="/tags/Kosaraju/">Kosaraju</a><small>1</small></li>
+  
+    <li><a href="/tags/Kruskal/">Kruskal</a><small>5</small></li>
+  
+    <li><a href="/tags/Kuhn-Munkres/">Kuhn-Munkres</a><small>1</small></li>
+  
+    <li><a href="/tags/K短路/">K短路</a><small>1</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>2</small></li>
+  
+    <li><a href="/tags/LCS/">LCS</a><small>2</small></li>
+  
+    <li><a href="/tags/LIS/">LIS</a><small>4</small></li>
+  
+    <li><a href="/tags/Lambda/">Lambda</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/LoveLive/">LoveLive</a><small>1</small></li>
+  
+    <li><a href="/tags/Mac/">Mac</a><small>1</small></li>
+  
+    <li><a href="/tags/PB/">PB</a><small>1</small></li>
+  
+    <li><a href="/tags/Prim/">Prim</a><small>8</small></li>
+  
+    <li><a href="/tags/SAP/">SAP</a><small>6</small></li>
+  
+    <li><a href="/tags/SLF/">SLF</a><small>1</small></li>
+  
+    <li><a href="/tags/SPFA/">SPFA</a><small>11</small></li>
+  
+    <li><a href="/tags/SSH/">SSH</a><small>1</small></li>
+  
+    <li><a href="/tags/ST3/">ST3</a><small>1</small></li>
+  
+    <li><a href="/tags/Stoer-Wagner/">Stoer-Wagner</a><small>2</small></li>
+  
+    <li><a href="/tags/TF-IDF/">TF-IDF</a><small>1</small></li>
+  
+    <li><a href="/tags/Tarjan/">Tarjan</a><small>8</small></li>
+  
+    <li><a href="/tags/Trie/">Trie</a><small>2</small></li>
+  
+    <li><a href="/tags/WA2/">WA2</a><small>1</small></li>
+  
+    <li><a href="/tags/WebBrowser/">WebBrowser</a><small>2</small></li>
+  
+    <li><a href="/tags/css/">css</a><small>1</small></li>
+  
+    <li><a href="/tags/disqus/">disqus</a><small>1</small></li>
+  
+    <li><a href="/tags/github/">github</a><small>3</small></li>
+  
+    <li><a href="/tags/hash/">hash</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>2</small></li>
+  
+    <li><a href="/tags/hook/">hook</a><small>1</small></li>
+  
+    <li><a href="/tags/json/">json</a><small>1</small></li>
+  
+    <li><a href="/tags/k叉树/">k叉树</a><small>1</small></li>
+  
+    <li><a href="/tags/lazy/">lazy</a><small>2</small></li>
+  
+    <li><a href="/tags/log/">log</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/scanf/">scanf</a><small>1</small></li>
+  
+    <li><a href="/tags/table/">table</a><small>1</small></li>
+  
+    <li><a href="/tags/中毒/">中毒</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>6</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/二分图匹配/">二分图匹配</a><small>14</small></li>
+  
+    <li><a href="/tags/二分图多重匹配/">二分图多重匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/二叉树/">二叉树</a><small>2</small></li>
+  
+    <li><a href="/tags/二进制/">二进制</a><small>2</small></li>
+  
+    <li><a href="/tags/位运算/">位运算</a><small>1</small></li>
+  
+    <li><a href="/tags/全局最小割/">全局最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/前缀和/">前缀和</a><small>2</small></li>
+  
+    <li><a href="/tags/割点/">割点</a><small>2</small></li>
+  
+    <li><a href="/tags/割边/">割边</a><small>2</small></li>
+  
+    <li><a href="/tags/匈牙利算法/">匈牙利算法</a><small>2</small></li>
+  
+    <li><a href="/tags/双连通分量/">双连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/可行流/">可行流</a><small>3</small></li>
+  
+    <li><a href="/tags/哈密顿回路/">哈密顿回路</a><small>2</small></li>
+  
+    <li><a href="/tags/哈尔滨/">哈尔滨</a><small>1</small></li>
+  
+    <li><a href="/tags/图论/">图论</a><small>2</small></li>
+  
+    <li><a href="/tags/基本不等式/">基本不等式</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>1</small></li>
+  
+    <li><a href="/tags/多重背包/">多重背包</a><small>1</small></li>
+  
+    <li><a href="/tags/大整数/">大整数</a><small>1</small></li>
+  
+    <li><a href="/tags/字符串/">字符串</a><small>5</small></li>
+  
+    <li><a href="/tags/差分约束/">差分约束</a><small>7</small></li>
+  
+    <li><a href="/tags/带花树匹配/">带花树匹配</a><small>2</small></li>
+  
+    <li><a href="/tags/平面图/">平面图</a><small>1</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>18</small></li>
+  
+    <li><a href="/tags/康托展开/">康托展开</a><small>2</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>2</small></li>
+  
+    <li><a href="/tags/强连通分量/">强连通分量</a><small>7</small></li>
+  
+    <li><a href="/tags/当前弧/">当前弧</a><small>2</small></li>
+  
+    <li><a href="/tags/微博/">微博</a><small>1</small></li>
+  
+    <li><a href="/tags/快速乘法/">快速乘法</a><small>1</small></li>
+  
+    <li><a href="/tags/快速幂/">快速幂</a><small>1</small></li>
+  
+    <li><a href="/tags/总结/">总结</a><small>1</small></li>
+  
+    <li><a href="/tags/扫描线/">扫描线</a><small>3</small></li>
+  
+    <li><a href="/tags/拆边/">拆边</a><small>1</small></li>
+  
+    <li><a href="/tags/拓扑排序/">拓扑排序</a><small>3</small></li>
+  
+    <li><a href="/tags/按键精灵/">按键精灵</a><small>1</small></li>
+  
+    <li><a href="/tags/排序/">排序</a><small>1</small></li>
+  
+    <li><a href="/tags/搜索/">搜索</a><small>5</small></li>
+  
+    <li><a href="/tags/数学/">数学</a><small>11</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>5</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>4</small></li>
+  
+    <li><a href="/tags/无向图/">无向图</a><small>1</small></li>
+  
+    <li><a href="/tags/无源汇/">无源汇</a><small>3</small></li>
+  
+    <li><a href="/tags/最优匹配/">最优匹配</a><small>3</small></li>
+  
+    <li><a href="/tags/最大匹配/">最大匹配</a><small>1</small></li>
+  
+    <li><a href="/tags/最大团/">最大团</a><small>1</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>17</small></li>
+  
+    <li><a href="/tags/最大独立集/">最大独立集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>3</small></li>
+  
+    <li><a href="/tags/最小支配集/">最小支配集</a><small>1</small></li>
+  
+    <li><a href="/tags/最小树形图/">最小树形图</a><small>1</small></li>
+  
+    <li><a href="/tags/最小流/">最小流</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点权覆盖/">最小点权覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小点覆盖/">最小点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最小环/">最小环</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生成树/">最小生成树</a><small>15</small></li>
+  
+    <li><a href="/tags/最小生成森林/">最小生成森林</a><small>1</small></li>
+  
+    <li><a href="/tags/最小生生成树/">最小生生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最小路径覆盖/">最小路径覆盖</a><small>2</small></li>
+  
+    <li><a href="/tags/最小顶点覆盖/">最小顶点覆盖</a><small>1</small></li>
+  
+    <li><a href="/tags/最短距离/">最短距离</a><small>1</small></li>
+  
+    <li><a href="/tags/最短路/">最短路</a><small>21</small></li>
+  
+    <li><a href="/tags/最短路径/">最短路径</a><small>3</small></li>
+  
+    <li><a href="/tags/有上下界/">有上下界</a><small>4</small></li>
+  
+    <li><a href="/tags/有向图/">有向图</a><small>1</small></li>
+  
+    <li><a href="/tags/有源汇/">有源汇</a><small>2</small></li>
+  
+    <li><a href="/tags/杨辉三角/">杨辉三角</a><small>2</small></li>
+  
+    <li><a href="/tags/枚举/">枚举</a><small>5</small></li>
+  
+    <li><a href="/tags/染色/">染色</a><small>1</small></li>
+  
+    <li><a href="/tags/栈/">栈</a><small>1</small></li>
+  
+    <li><a href="/tags/树/">树</a><small>2</small></li>
+  
+    <li><a href="/tags/树状数组/">树状数组</a><small>15</small></li>
+  
+    <li><a href="/tags/树的直径/">树的直径</a><small>1</small></li>
+  
+    <li><a href="/tags/概率/">概率</a><small>2</small></li>
+  
+    <li><a href="/tags/次小生成树/">次小生成树</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉回路/">欧拉回路</a><small>3</small></li>
+  
+    <li><a href="/tags/欧拉路径/">欧拉路径</a><small>1</small></li>
+  
+    <li><a href="/tags/混合图欧拉回路/">混合图欧拉回路</a><small>1</small></li>
+  
+    <li><a href="/tags/滚动数组/">滚动数组</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/环路/">环路</a><small>1</small></li>
+  
+    <li><a href="/tags/相似性/">相似性</a><small>1</small></li>
+  
+    <li><a href="/tags/离散化/">离散化</a><small>3</small></li>
+  
+    <li><a href="/tags/离线/">离线</a><small>2</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>18</small></li>
+  
+    <li><a href="/tags/组合/">组合</a><small>1</small></li>
+  
+    <li><a href="/tags/缩点/">缩点</a><small>4</small></li>
+  
+    <li><a href="/tags/背包/">背包</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+    <li><a href="/tags/自制音速/">自制音速</a><small>1</small></li>
+  
+    <li><a href="/tags/表达式/">表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算几何/">计算几何</a><small>2</small></li>
+  
+    <li><a href="/tags/记忆化搜索/">记忆化搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/负环/">负环</a><small>1</small></li>
+  
+    <li><a href="/tags/贪心/">贪心</a><small>13</small></li>
+  
+    <li><a href="/tags/费用流/">费用流</a><small>9</small></li>
+  
+    <li><a href="/tags/迭代加深搜索/">迭代加深搜索</a><small>1</small></li>
+  
+    <li><a href="/tags/迷宫/">迷宫</a><small>1</small></li>
+  
+    <li><a href="/tags/逆序数/">逆序数</a><small>1</small></li>
+  
+    <li><a href="/tags/链式前向星/">链式前向星</a><small>2</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/雪菜/">雪菜</a><small>1</small></li>
+  
+    <li><a href="/tags/静态邻接表/">静态邻接表</a><small>2</small></li>
+  
+    <li><a href="/tags/预科/">预科</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Erona
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'erona';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

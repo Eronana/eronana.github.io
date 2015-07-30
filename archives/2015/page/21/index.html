@@ -64,39 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-01-18T14:10:55.000Z"><a href="/2015/01/18/扩栈代码/">Jan 18 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/01/18/扩栈代码/">扩栈代码</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>有时候递归曾数太多导致爆栈,有懒得改成非递归的时候<br>扩栈是一个不错的选择<br><figure class="highlight c++"><figcaption><span>G++</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> size = <span class="number">256</span> &lt;&lt; <span class="number">20</span>; <span class="comment">// 256MB  </span></span><br><span class="line"><span class="keyword">char</span> *p = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(size) + size;  </span><br><span class="line">__asm__(<span class="string">"movl %0, %%esp\n"</span> :: <span class="string">"r"</span>(p));</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight c++"><figcaption><span>VC++</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> comment(linker, <span class="string">"/STACK:102400000,102400000"</span>)</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-01-17T17:34:16.000Z"><a href="/2015/01/18/POJ3321-Apple-Tree/">Jan 18 2015</a></time>
       
       
@@ -423,6 +390,42 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-16T08:25:54.000Z"><a href="/2015/01/16/POJ3204-Ikki-s-Story-I-Road-Reconstruction/">Jan 16 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/16/POJ3204-Ikki-s-Story-I-Road-Reconstruction/">POJ3204 Ikki&#39;s Story I - Road Reconstruction</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>题意很简单<br>把某条边扩容后,流量会增大,求这样的边有几个<br>首先求一遍最大流<br>然后得到残留网络<br>分别从源点和汇点开始DFS,条件是残量不为0<br>最后枚举边,残量为0,但是左右都是通路的话<br>这条边便是所求边,ans++<br>实现是我没有用枚举的方法,而是在第二次DFS时直接把可能的边对应的点保存<br>DFS之后扫一遍这些点,合法就ans++<br>不过速度完全没有改善....用处几乎为0的优化..<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/16/POJ3204-Ikki-s-Story-I-Road-Reconstruction/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -474,10 +477,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -511,6 +510,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

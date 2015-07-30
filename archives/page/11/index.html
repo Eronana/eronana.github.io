@@ -64,44 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-03-17T01:41:10.000Z"><a href="/2015/03/17/POJ2912-Rochambeau/">Mar 17 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/03/17/POJ2912-Rochambeau/">POJ2912 Rochambeau</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>N个熊孩子玩剪刀石头布<br>其中一个是裁判,然后剩下的熊孩子分成三组(有可能某组是空的)<br>每个组的每个人都一直使用同一个手势<br>并且每个组使用的手势都不同<br>裁判和任何人玩,手势都是随机的<br>给出熊孩子们的结果<br>求最少用多少条结果就能找出谁是裁判<br>如果不可能找出,输出Impossible<br>如果找不出,输出Can not determine</p>
-<p>##解题思路<br>根据已知条件,可以得出同组的结果一定是平局,不同组的每次输赢相同<br>也即是三个组相互克制<br>而裁判则是个奇葩,表现出飘忽不定的情况<br>也就是如果假设裁判也位于某组的话,则可能出现矛盾的情况:<br>和同组比赛出不同手势,和非同组比赛出相同手势<br>分析出这些,就很容易用并查集结局了<br>用带权并查集来维护组别的关系:<br>若AB同组(=),则dist(a,b)=0<br>若A赢了B(&gt;),则dist(a,b)=1<br>若A输了B(&lt;),则dist(a,b)=2<br>查询时对距离取模,即可获取两组的关系<br>最后枚举裁判,把裁判不参与的比赛用并查集维护<br>如果有多余1个没有矛盾的情况,则表示还不能判断出哪个是裁判<br>如果全部都矛盾,则表示条件有问题,不可能找出哪个是裁判<br>至于找出最少条判断出裁判的结果,只需维护最大的矛盾编号即可</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/03/17/POJ2912-Rochambeau/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-03-17T01:23:19.000Z"><a href="/2015/03/17/POJ1456-Supermarket/">Mar 17 2015</a></time>
       
       
@@ -440,6 +402,44 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-07T08:41:15.000Z"><a href="/2015/03/07/HDU1213-How-Many-Tables/">Mar 7 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/07/HDU1213-How-Many-Tables/">HDU1213 How Many Tables</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>给出N个人之间的认识关系<br>并且朋友关系是可传递的,即若A和B互相认识,B和C互相认识,则A和C也互相认识<br>不认识的人不会坐在同一张桌子上<br>问最少要准备多少张桌子</p>
+<p>##解题思路<br>对于这种可传递的关系,第一反应就是并查集<br>而本题求得便是并查集中,有多少个集合<br>求集合数量并不需要最后扫一遍,而是合并时就能直接处理<br>每成功合并一次,便表示减少一个集合,所以只要维护集合数即可<br>初始时,每个人都是一个集合,即初始集合数为N</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/07/HDU1213-How-Many-Tables/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -491,10 +491,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -528,6 +524,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

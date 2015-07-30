@@ -60,44 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-03-07T08:41:15.000Z"><a href="/2015/03/07/HDU1213-How-Many-Tables/">Mar 7 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/03/07/HDU1213-How-Many-Tables/">HDU1213 How Many Tables</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>给出N个人之间的认识关系<br>并且朋友关系是可传递的,即若A和B互相认识,B和C互相认识,则A和C也互相认识<br>不认识的人不会坐在同一张桌子上<br>问最少要准备多少张桌子</p>
-<p>##解题思路<br>对于这种可传递的关系,第一反应就是并查集<br>而本题求得便是并查集中,有多少个集合<br>求集合数量并不需要最后扫一遍,而是合并时就能直接处理<br>每成功合并一次,便表示减少一个集合,所以只要维护集合数即可<br>初始时,每个人都是一个集合,即初始集合数为N</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/03/07/HDU1213-How-Many-Tables/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-03-07T08:30:45.000Z"><a href="/2015/03/07/POJ1611-The-Suspects/">Mar 7 2015</a></time>
       
       
@@ -438,6 +400,44 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-02T05:06:12.000Z"><a href="/2015/03/02/POJ2289-Jamie-s-Contact-Groups/">Mar 2 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/02/POJ2289-Jamie-s-Contact-Groups/">POJ2289 Jamie&#39;s Contact Groups</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>把N个联系人分到M个分组中<br>每个联系人都有几个可选的分组<br>问了查询方便,希望人数最多的分组的人数尽可能少<br>输出人数最多的分组的人数</p>
+<p>##解题思路<br>很容易看出是联系人和分组的最大匹配问题<br>关键是令最多人数的分组人数最小<br>由于分组人数上限和能否全部比配具有单调性<br>所以可以通过二分人数上限得到答案<br>注意需要二分出最少得人数,所以注意二分不要写成普通的二分答案</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/02/POJ2289-Jamie-s-Contact-Groups/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -488,10 +488,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -525,6 +521,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

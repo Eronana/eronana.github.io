@@ -60,42 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-04-23T09:42:21.000Z"><a href="/2015/04/23/在C-中使用Lambda实现支持getter-setter的属性/">Apr 23 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/04/23/在C-中使用Lambda实现支持getter-setter的属性/">在C++中使用Lambda实现支持getter/setter的属性</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>稍微有点常识的人都知道,C++并不支持滋磁属性<br>于是经常有setXXX,getXXX这种东西<br>不过通过一些技巧,C++也可以实现属性,下面直接上代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/04/23/在C-中使用Lambda实现支持getter-setter的属性/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-03-25T15:47:20.000Z"><a href="/2015/03/25/HDU4738-Caocao-s-Bridges/">Mar 25 2015</a></time>
       
       
@@ -431,6 +395,44 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-21T11:23:09.000Z"><a href="/2015/03/21/POJ3592-Instantaneous-Transference/">Mar 21 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/03/21/POJ3592-Instantaneous-Transference/">POJ3592 Instantaneous Transference</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>1 //一组数据<br>2 2 //下面是2*2的地图<br>11 //数字代表该点的矿物数量<br>1* //*代表传送点<br>0 0 //传送点的目标坐标<br>地图中可能有多个传送点<br>地图上还可能有#,表示不能进入的区域<br>从左上角开始走,只能向下走或向右走<br>到达的点上的的矿物会被取走<br>到达传送点,可以选择传送到目标坐标,或者继续向下或向右走<br>问最多能挖到多少矿物</p>
+<p>##解题思路<br>如果没有传送点,本题就是一道十分简单的搜索(DP)<br>因为存在传送点,就构成了环路,所以不能直接搜索或DP<br>很容易想到,既然形成了环路,那么环路上的点一定都可以取到,并且到达环路上的任意一点<br>而且多个环路套在一起也是如此,于是很容易就能想到缩点<br>先求出强连通分量,然后把每个分量缩成一点,矿物数量为分量所有点之和<br>缩点后,环路自然消失,可以安心的搜索/DP了</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/03/21/POJ3592-Instantaneous-Transference/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -481,10 +483,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -518,6 +516,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

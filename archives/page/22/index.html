@@ -64,42 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-01-16T08:25:54.000Z"><a href="/2015/01/16/POJ3204-Ikki-s-Story-I-Road-Reconstruction/">Jan 16 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/01/16/POJ3204-Ikki-s-Story-I-Road-Reconstruction/">POJ3204 Ikki&#39;s Story I - Road Reconstruction</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>题意很简单<br>把某条边扩容后,流量会增大,求这样的边有几个<br>首先求一遍最大流<br>然后得到残留网络<br>分别从源点和汇点开始DFS,条件是残量不为0<br>最后枚举边,残量为0,但是左右都是通路的话<br>这条边便是所求边,ans++<br>实现是我没有用枚举的方法,而是在第二次DFS时直接把可能的边对应的点保存<br>DFS之后扫一遍这些点,合法就ans++<br>不过速度完全没有改善....用处几乎为0的优化..<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/01/16/POJ3204-Ikki-s-Story-I-Road-Reconstruction/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-01-16T02:19:48.000Z"><a href="/2015/01/16/双向链式前向星/">Jan 16 2015</a></time>
       
       
@@ -430,6 +394,42 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-08T08:55:35.000Z"><a href="/2015/01/08/POJ1515-Street-Directions/">Jan 8 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/08/POJ1515-Street-Directions/">POJ1515 Street Directions</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>把一个无向图在保持连通性的前提下改造成有向图<br>即把所有无向边改为有向边<br>求最多能把多少无向边改为有向边<br>改造后的图为强连通图,但我们可以先从无向图的双连通开始考虑<br>无向图的桥,一定不可以改造,否则会造成双连通分量之间不连通,改造后的有向图自然也不连通<br>至于双连通分量,通过dfs,把每条边都走一遍,一定可以经过所有点<br>于是dfs时,输出所走的边即可<br>并且dfs递归的条件是走没走过的边,而不是没走过的点<br>根据邻接表建无向图,一般都是建成双向的有向图<br>所以标记走过的边时,要把u-&gt;v和v-&gt;u都标记为走过的<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/08/POJ1515-Street-Directions/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -481,10 +481,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -518,6 +514,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

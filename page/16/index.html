@@ -60,46 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-02-18T09:15:26.000Z"><a href="/2015/02/18/HDU4280-Island-Transport/">Feb 18 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/18/HDU4280-Island-Transport/">HDU4280 Island Transport</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>平面上N个点,M条边连接这些点,每条边都有容量限制<br>求从最左边到最右边的最大流量</p>
-<p>##解题思路<br>这道题看起来是个很平常的裸的最大流<br>不过实际上并没有这么简单<br>(2&lt;=N,M&lt;=100000)<br>(1&lt;=C&lt;=10000)<br>在这个数据量面前,即使是10s的时限,一般的网络流模板也要跪<br>于是有两种方法,一种是把模板优化到极致,一种是另寻他路</p>
-<p>###极度优化的SAP<br>这道题,一开始用的手敲的递归的SAP+GAP,跪<br>然后改成非递归的SAP+GAP+当前弧,跪<br>于是我意识到,我需要为模板增加第三个优化,BFS<br>优化都用尽了,交上去,4000ms过了</p>
-<p>###平面图最大流转换为最短路<br>首先,最大流等于最小割,这个应该是没有疑议的<br>而平面图的最小割呢...待续</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/18/HDU4280-Island-Transport/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-02-18T09:02:07.000Z"><a href="/2015/02/18/POJ1087-A-Plug-for-UNIX/">Feb 18 2015</a></time>
       
       
@@ -445,6 +405,44 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-15T12:25:54.000Z"><a href="/2015/02/15/POJ3422-Kaka-s-Matrix-Travels/">Feb 15 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/15/POJ3422-Kaka-s-Matrix-Travels/">POJ3422 Kaka&#39;s Matrix Travels</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>矩阵取数<br>从左上角开始,只能向右或向下,一直走到右下角<br>经过的某点,便可得到该点得分数,然后改点的分数变为0<br>这样从坐上走到右下,总共K次,最多能得到多少分</p>
+<p>##解题思路<br>若走一次的话,就是十分简单的DP<br>若是走两次,便和NOIP2008T3差不多,用DP即可解决<br>不过本题是走K次,显然用DP是行不通的了<br>于是还是要用费用流<br>利用容量,可以很容易控制每个点取一次<br>不过由于是点,所以要拆点<br>a拆为a和a&#39;,从a进,从a&#39;出.a和a&#39;连接容量为1的边,费用为该点得分<br>不过这样只能走一次,而我们需要的是可以走任意次,只是以后再走,都不得分<br>于是再连一条边,容量INF,费用为0<br>所以本题便是求最大费用<br>由于只能从上到右或到下,所以无法回到之前的点<br>也就是说,有拓扑序,这样就不存在无法求最长路的问题了<br>重新理清一下建图方式:<br>源点连向左上角,容量为k,费用为0<br>矩阵中每个点,拆为两个点a和a&#39;<br>a向a&#39;连边,容量为1,费用为该点得分值<br>a向a&#39;连边,容量为INF,费用0.也就是取过之后,得分为0<br>a&#39;向下,向右连边,容量INF,费用为0<br>汇点为右下角<br>然后求最大费用最大流即可</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/15/POJ3422-Kaka-s-Matrix-Travels/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -495,10 +493,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -532,6 +526,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

@@ -60,42 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-01-01T15:32:17.000Z"><a href="/2015/01/01/POJ2186-Popular-Cows/">Jan 1 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/01/01/POJ2186-Popular-Cows/">POJ2186 Popular Cows</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>有N头奶牛,A奶牛认为B奶牛受欢迎,B奶牛认为C奶牛受欢迎,那么A奶牛也认为C奶牛受欢迎<br>也就是说,这种关系是有向传递的<br>现在给出M条信息,求出有多少头奶牛被所有奶牛认为是受欢迎的<br>首先奶牛可以互相认为受欢迎<br>如果A认为B受欢迎,B也认为A受欢迎,那么这两头奶牛会同时认为其他的奶牛受欢迎,以及会同时被其他的奶牛认为是受欢迎的<br>换句话说,这两头奶牛被捆绑到一起了,他们与其他奶牛的关系是同步的,甚至可以把这两头奶牛看成是1头<br>现在把2头奶牛扩展成多头,多头奶牛之间互相认为是受欢迎的<br>那么这些奶牛就可以看成是一头,也就是缩点<br>而这些互相认为是受欢迎的奶牛的群体,便是强连通分量<br>于是解体思路就明确了<br>求出所有强连通分量,然后把每个强连通分量所谓一个点<br>最后查找出度为0的点,也就是不认为其他奶牛是流行的奶牛<br>如果这样的点有一个,答案就是这个点的强连通分量的点数<br>如果有多个,则这n堆奶牛都不认为对方是流行的,也就是无解<br>代码实现上,求强连通分量的同时计算出每个强连通分量的数量<br>然后缩点并不用重新建图,直接用点对应的强连通分量进行计算即可<br>详情请看代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/01/01/POJ2186-Popular-Cows/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-01-01T12:21:34.000Z"><a href="/2015/01/01/POJ1734-Sightseeing-trip/">Jan 1 2015</a></time>
       
       
@@ -420,6 +384,42 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-28T10:35:25.000Z"><a href="/2014/12/28/POJ2449-Remmarguts-Date/">Dec 28 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/28/POJ2449-Remmarguts-Date/">POJ2449 Remmarguts&#39; Date</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>求K短路的裸题<br>直接上Dijkstra+A*即可<br>当然给Dijkstra换成SPFA也可以<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/28/POJ2449-Remmarguts-Date/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -470,10 +470,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -507,6 +503,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

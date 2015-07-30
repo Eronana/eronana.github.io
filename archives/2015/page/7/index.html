@@ -64,44 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-05-11T06:20:21.000Z"><a href="/2015/05/11/HDU1540-Tunnel-Warfare/">May 11 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/05/11/HDU1540-Tunnel-Warfare/">HDU1540 Tunnel Warfare</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>N个点,三种操作<br>删掉某个点<br>恢复某个点<br>查询和某个相连的所有点的个数</p>
-<p>##解题思路<br>线段树的每个节点记录对应区间内最大连续个数,左端点连续个数,右端点连续个数<br>sum的维护方式<br>x.sum=max(lson.sum,rson.sum,lson.rsum+rson.lsum)<br>lsum的维护方式<br>x.lsum=lson.lsum<br>if(lson.lsum==lson.sum)x.lsum+=rson.lsum<br>rsum同lsum<br>查询时直接单点查询,需要注意的是,如果查询的点是某区间端点的话,就要查询两个区间</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/05/11/HDU1540-Tunnel-Warfare/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-05-11T06:05:28.000Z"><a href="/2015/05/11/HDU4027-Can-you-answer-these-queries/">May 11 2015</a></time>
       
       
@@ -433,6 +395,42 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-04-23T09:42:21.000Z"><a href="/2015/04/23/在C-中使用Lambda实现支持getter-setter的属性/">Apr 23 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/04/23/在C-中使用Lambda实现支持getter-setter的属性/">在C++中使用Lambda实现支持getter/setter的属性</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>稍微有点常识的人都知道,C++并不支持滋磁属性<br>于是经常有setXXX,getXXX这种东西<br>不过通过一些技巧,C++也可以实现属性,下面直接上代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/04/23/在C-中使用Lambda实现支持getter-setter的属性/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -484,10 +482,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -521,6 +515,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

@@ -64,45 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-02-03T05:37:59.000Z"><a href="/2015/02/03/CF510B-Fox-And-Two-Dots/">Feb 3 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/03/CF510B-Fox-And-Two-Dots/">CF510B Fox And Two Dots</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>3 4<br>AAAA<br>ABCA<br>AAAA</p>
-<p>3 4<br>AAAA<br>ABCA<br>AADA<br>找出图形中是否包含由相同字符构成的圈<br>第一个样例A可以构成圈,第二个样例没有字符构成圈<br>最小的圈,由4个相同的字符构成<br>XX<br>XX<br>如果一个图形中存在圈,输出Yes,否则输出No</p>
-<p>##解题思路<br>一开始读题不仔细,当成了找矩形的圈<br>而实际上,能构成圈就行,解法也更简单了:<br>已从从没有访问过的点开始DFS<br>DFS进入下一层的条件是,具有相同字符,并且不能回退<br>如果访问到已经访问过的点,表示找到圈了</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/03/CF510B-Fox-And-Two-Dots/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-02-02T15:31:54.000Z"><a href="/2015/02/02/SGU176-Flow-construction/">Feb 2 2015</a></time>
       
       
@@ -447,6 +408,42 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-22T08:00:56.000Z"><a href="/2015/01/22/POJ1637-Sightseeing-tour/">Jan 22 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/22/POJ1637-Sightseeing-tour/">POJ1637 Sightseeing tour</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>给出一个由无向边和有向边组成的图,求是否存在欧拉回路<br>首先我们判断一下是否有可能存在欧拉回路<br>若一个图存在欧拉回路,则每个点的入度=-出度<br>随意修改图中边的方向,会导致一些点的入度!=出度<br>但是有一个性质不会变,即入度+出度为偶数<br>也就是说,一个由存在欧拉回路的图修改方向得到的图,其入度+出度定为偶数<br>根据这个,先把图中无向边改成有向边,方向随意<br>接着判断入度+出度是否是偶数,如果存在某一点入度+出度为奇数,则此图一定不存在欧拉回路<br>接着,即使所有点入度+出度为偶数,也不能保证一定存在欧拉回路<br>我们还需尝试重新分配无向图的边的方向<br>下面说的点和边,都是与无向边相连的点和无向边,也就是先无视原图的有向边<br>如果存在欧拉回路的话,某个点的出度大于入度,则说明这个点需要增加入度减少出度,也就是需要修改边的方向<br>将一条出边改为入边,则入度+1,出度-1,于是更一般的<br>若一个点出度&gt;入度,则需要把(出度-入度)/2条出边改为入边<br>若一个点出的&lt;入度,则需要把(入度-出度)/2的入边改为出边<br>如果所有边都可改造完成,则所有点入度=出度,即存在欧拉回路<br>如何判断是否可以改造完成,这就要用到最大流了<br>设立超级源点S,连向所有需要改成入边的点,容量为需要修改的边数<br>设立超级汇点T,将所有需要改为出边的点连向T,容量为需要修改的边数<br>若S发出的边都满流,则表示所有出度&gt;入度的点都能修改为入度=出度<br>自然入度&lt;出度的点也能修改为入度=出度<br>于是如果断最大流等于S的发出的边的容量之和,则存在欧拉回路<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/22/POJ1637-Sightseeing-tour/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -498,10 +495,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -535,6 +528,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

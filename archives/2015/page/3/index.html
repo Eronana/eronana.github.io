@@ -64,44 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-05-13T08:18:36.000Z"><a href="/2015/05/13/POJ2031-Building-a-Space-Station/">May 13 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/05/13/POJ2031-Building-a-Space-Station/">POJ2031 Building a Space Station</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>在三维空间上给一些球,求用最小长度的直线把这些球连在一起</p>
-<p>##解题思路<br>计算每两个球的距离,需要注意的是,如果球有重合,那么距离为0<br>然后套模板求最小生生成树即可</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/05/13/POJ2031-Building-a-Space-Station/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-05-13T08:16:38.000Z"><a href="/2015/05/13/POJ1287-Networking/">May 13 2015</a></time>
       
       
@@ -442,6 +404,44 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-05-13T04:19:18.000Z"><a href="/2015/05/13/POJ2502-Subway/">May 13 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/05/13/POJ2502-Subway/">POJ2502 Subway</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>给出家和学校的坐标,以及若干条地铁的地铁站的坐标<br>用步行的方式,可以以10km/h的速度从一个点到达另一个点<br>做地铁的话,可以以40km/h的速度到达相邻的地铁站<br>忽略等地铁的时间,问最快从从家到学校要多少分钟</p>
+<p>##解题思路<br>首先对于每两个点,连上边,权值为距离/10<br>然后对于同一条地铁的两个相邻的地铁站,连边,权值为距离/40<br>然后跑从家到学校到的最短路即可<br>最后..还需注意一下单位换算问题</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/05/13/POJ2502-Subway/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -493,10 +493,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -530,6 +526,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

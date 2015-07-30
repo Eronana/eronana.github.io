@@ -64,44 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-03-02T05:06:12.000Z"><a href="/2015/03/02/POJ2289-Jamie-s-Contact-Groups/">Mar 2 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/03/02/POJ2289-Jamie-s-Contact-Groups/">POJ2289 Jamie&#39;s Contact Groups</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>把N个联系人分到M个分组中<br>每个联系人都有几个可选的分组<br>问了查询方便,希望人数最多的分组的人数尽可能少<br>输出人数最多的分组的人数</p>
-<p>##解题思路<br>很容易看出是联系人和分组的最大匹配问题<br>关键是令最多人数的分组人数最小<br>由于分组人数上限和能否全部比配具有单调性<br>所以可以通过二分人数上限得到答案<br>注意需要二分出最少得人数,所以注意二分不要写成普通的二分答案</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/03/02/POJ2289-Jamie-s-Contact-Groups/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-03-02T04:51:16.000Z"><a href="/2015/03/02/POJ2584-T-Shirt-Gumbo/">Mar 2 2015</a></time>
       
       
@@ -440,6 +402,44 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-28T10:44:16.000Z"><a href="/2015/02/28/POJ2446-Chessboard/">Feb 28 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/28/POJ2446-Chessboard/">POJ2446 Chessboard</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br><img src="http://poj.org/images/2446_1.jpg" alt=""><br>问是否可以用1*2的板将所给图中除了有坑的地方覆盖上<br><img src="http://poj.org/images/2446_2.jpg" alt=""><br>这样就覆盖上了<br><img src="http://poj.org/images/2446_3.jpg" alt=""><br>这样没有,因为盖到了坑上<br><img src="http://poj.org/images/2446_4.jpg" alt=""><br>这样也没有,因为有一块没有被覆盖<br>给出n*m的棋盘,并且给出k个坑的位置<br>如果可以覆盖上,输出YES,否则输出NO</p>
+<p>##解题思路<br>本题的解法很精妙,如果不是直接看了解题方法,我很难想到如何用二分图匹配来解<br>首先,如果某个点盖上了板,则该点的上,下,左,右的四个点之一肯定也要被盖上<br>把棋盘上非坑的点分为两个集合A和B<br>集合A中的点的上下左右的点属于集合B<br>把A集合的每个点,都与其上下左右的点连边<br>于是可以很明显的看出,求A和B的最大匹配即可<br>若最大匹配=(n*m-k)/2,则YES,否则NO<br>至于如何找出A和B,方法很简单<br>对于处于i行j列的点,如果i+j为偶数,则令其属于A,否则属于B即可(反过来也一样)<br>实现上,先扫一遍,求出每个点在所在集合中的序号<br>再扫一遍,把A集合和B集合连上边,注意不要连坑上<br>然后就最大匹配即可</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/28/POJ2446-Chessboard/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -491,10 +491,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -528,6 +524,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

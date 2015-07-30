@@ -64,39 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-11-12T09:49:33.000Z"><a href="/2014/11/12/用7-ZIP解压从HTTP协议中获取的GZIP数据/">Nov 12 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/11/12/用7-ZIP解压从HTTP协议中获取的GZIP数据/">用7-ZIP解压从HTTP协议中获取的GZIP数据</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>最近研究了一下抓包,抓的是HTTP的<br>不过由于启用了GZIP,所以抓到的数据无法直接得到明文<br>Connection: close\r\n数据。。。<br>再通过Content-Length,就能取到数据了<br>把数据保存为文件,注意不能是文本文件,应该是二进制文件<br>然后用7-ZIP打开,就可以直接解压出数据</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2014-11-11T13:49:36.000Z"><a href="/2014/11/11/LoveLive-日服刷号脚本完成/">Nov 11 2014</a></time>
       
       
@@ -420,6 +387,39 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-07T14:52:12.000Z"><a href="/2014/11/07/Hexo部署后CNAME被覆盖的解决方法/">Nov 7 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/07/Hexo部署后CNAME被覆盖的解决方法/">Hexo部署后CNAME被覆盖的解决方法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>之前在github的student pack中得到了一个me域名<br>虽说手里已经一把域名了,不过还是用决定用erona.me这个域名<br>于是按照教程说的,在repo根目录创建CNAME文件,然后再里面写上要绑定的域名<br>最后解析一下就OK<br>等待一会,没问题,可以正常访问<br>但是过了一会发现404错误..以为是缓存的问题,大概等一会就好了,于是就放在一边了<br>刚刚看了下,居然还是404.然后检查CNAME文件,不见了..<br>原来部署的时候,直接给清空了<br>查了下资料,只要在本地创建source/CNAME并填上域名<br>部署时会自动上传的</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -471,10 +471,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -508,6 +504,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

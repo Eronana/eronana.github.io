@@ -64,44 +64,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-02-10T16:26:14.000Z"><a href="/2015/02/11/POJ1836-Alignment/">Feb 11 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/11/POJ1836-Alignment/">POJ1836 Alignment</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>给出一个浮点型的序列,求最少删除多少个数,能使任意一个数都能大于最左边的或最右边的数</p>
-<p>##解题思路<br>其实就是LIS(最长上升子序列)嘛<br>不过还有些不同的的地方,就是这个是两头的<br>于是我们求两个LIS<br>从左边求一次,记录于dp1;再从右边求一次,记录于dp2<br>最后枚举两个端点s1,s2<br>求出最大的dp1[s1]+dp2[s2]<br>最后再用总数n减去即可</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/11/POJ1836-Alignment/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-02-10T16:06:04.000Z"><a href="/2015/02/11/POJ3267-The-Cow-Lexicon/">Feb 11 2015</a></time>
       
       
@@ -440,6 +402,45 @@ var _hmt = _hmt || [];
 
 
   
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-03T05:37:59.000Z"><a href="/2015/02/03/CF510B-Fox-And-Two-Dots/">Feb 3 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/03/CF510B-Fox-And-Two-Dots/">CF510B Fox And Two Dots</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>3 4<br>AAAA<br>ABCA<br>AAAA</p>
+<p>3 4<br>AAAA<br>ABCA<br>AADA<br>找出图形中是否包含由相同字符构成的圈<br>第一个样例A可以构成圈,第二个样例没有字符构成圈<br>最小的圈,由4个相同的字符构成<br>XX<br>XX<br>如果一个图形中存在圈,输出Yes,否则输出No</p>
+<p>##解题思路<br>一开始读题不仔细,当成了找矩形的圈<br>而实际上,能构成圈就行,解法也更简单了:<br>已从从没有访问过的点开始DFS<br>DFS进入下一层的条件是,具有相同字符,并且不能回退<br>如果访问到已经访问过的点,表示找到圈了</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/03/CF510B-Fox-And-Two-Dots/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
 
   <nav id="pagination">
   
@@ -491,10 +492,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -528,6 +525,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

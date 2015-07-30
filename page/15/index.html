@@ -60,44 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-02-21T15:14:54.000Z"><a href="/2015/02/21/HDU3081-Marriage-Match-II/">Feb 21 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/02/21/HDU3081-Marriage-Match-II/">HDU3081 Marriage Match II</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>##题意<br>有n个女孩,n个男孩<br>女孩对男孩存在认同关系,某女孩认同某男孩<br>女孩之间存在可传递的朋友关系,某女孩和某女孩是朋友<br>然后他们要开始玩游戏了<br>每轮游戏,每个女孩都要选择一个男孩当py,并且有如下要求<br>1.这个男孩必须是女孩认同的,或者是这个女孩的朋友认同的<br>2.这个男孩不能是女孩之前选过的<br>问最多可以进行多少轮游戏</p>
-<p>##解题思路<br>首先对于这种可传递的朋友关系<br>第一反应是用并查集来维护这些关系<br>然后建图<br>源点连向每个女孩,容量为X<br>每个女孩连向可选的男孩,容量为1<br>男孩连向汇点,容量为INF<br>当且仅当最大流为满流时(最大流等于X*n),表示可以进行X轮游戏<br>于是二分X即可</p>
-<p>##实现代码<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/02/21/HDU3081-Marriage-Match-II/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-02-21T15:02:05.000Z"><a href="/2015/02/21/POJ2711-Leapin-Lizards/">Feb 21 2015</a></time>
       
       
@@ -434,6 +396,46 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-18T09:15:26.000Z"><a href="/2015/02/18/HDU4280-Island-Transport/">Feb 18 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/18/HDU4280-Island-Transport/">HDU4280 Island Transport</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>##题意<br>平面上N个点,M条边连接这些点,每条边都有容量限制<br>求从最左边到最右边的最大流量</p>
+<p>##解题思路<br>这道题看起来是个很平常的裸的最大流<br>不过实际上并没有这么简单<br>(2&lt;=N,M&lt;=100000)<br>(1&lt;=C&lt;=10000)<br>在这个数据量面前,即使是10s的时限,一般的网络流模板也要跪<br>于是有两种方法,一种是把模板优化到极致,一种是另寻他路</p>
+<p>###极度优化的SAP<br>这道题,一开始用的手敲的递归的SAP+GAP,跪<br>然后改成非递归的SAP+GAP+当前弧,跪<br>于是我意识到,我需要为模板增加第三个优化,BFS<br>优化都用尽了,交上去,4000ms过了</p>
+<p>###平面图最大流转换为最短路<br>首先,最大流等于最小割,这个应该是没有疑议的<br>而平面图的最小割呢...待续</p>
+<p>##实现代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/02/18/HDU4280-Island-Transport/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -484,10 +486,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -521,6 +519,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

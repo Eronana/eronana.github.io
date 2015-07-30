@@ -60,42 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-01-08T08:55:35.000Z"><a href="/2015/01/08/POJ1515-Street-Directions/">Jan 8 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/01/08/POJ1515-Street-Directions/">POJ1515 Street Directions</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>把一个无向图在保持连通性的前提下改造成有向图<br>即把所有无向边改为有向边<br>求最多能把多少无向边改为有向边<br>改造后的图为强连通图,但我们可以先从无向图的双连通开始考虑<br>无向图的桥,一定不可以改造,否则会造成双连通分量之间不连通,改造后的有向图自然也不连通<br>至于双连通分量,通过dfs,把每条边都走一遍,一定可以经过所有点<br>于是dfs时,输出所走的边即可<br>并且dfs递归的条件是走没走过的边,而不是没走过的点<br>根据邻接表建无向图,一般都是建成双向的有向图<br>所以标记走过的边时,要把u-&gt;v和v-&gt;u都标记为走过的<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/01/08/POJ1515-Street-Directions/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2015-01-08T07:06:16.000Z"><a href="/2015/01/08/关于求边的双连通分量/">Jan 8 2015</a></time>
       
       
@@ -419,6 +383,42 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-01T15:32:17.000Z"><a href="/2015/01/01/POJ2186-Popular-Cows/">Jan 1 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/01/POJ2186-Popular-Cows/">POJ2186 Popular Cows</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有N头奶牛,A奶牛认为B奶牛受欢迎,B奶牛认为C奶牛受欢迎,那么A奶牛也认为C奶牛受欢迎<br>也就是说,这种关系是有向传递的<br>现在给出M条信息,求出有多少头奶牛被所有奶牛认为是受欢迎的<br>首先奶牛可以互相认为受欢迎<br>如果A认为B受欢迎,B也认为A受欢迎,那么这两头奶牛会同时认为其他的奶牛受欢迎,以及会同时被其他的奶牛认为是受欢迎的<br>换句话说,这两头奶牛被捆绑到一起了,他们与其他奶牛的关系是同步的,甚至可以把这两头奶牛看成是1头<br>现在把2头奶牛扩展成多头,多头奶牛之间互相认为是受欢迎的<br>那么这些奶牛就可以看成是一头,也就是缩点<br>而这些互相认为是受欢迎的奶牛的群体,便是强连通分量<br>于是解体思路就明确了<br>求出所有强连通分量,然后把每个强连通分量所谓一个点<br>最后查找出度为0的点,也就是不认为其他奶牛是流行的奶牛<br>如果这样的点有一个,答案就是这个点的强连通分量的点数<br>如果有多个,则这n堆奶牛都不认为对方是流行的,也就是无解<br>代码实现上,求强连通分量的同时计算出每个强连通分量的数量<br>然后缩点并不用重新建图,直接用点对应的强连通分量进行计算即可<br>详情请看代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/01/POJ2186-Popular-Cows/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -469,10 +469,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -506,6 +502,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

@@ -60,42 +60,6 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-12-28T10:35:25.000Z"><a href="/2014/12/28/POJ2449-Remmarguts-Date/">Dec 28 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/12/28/POJ2449-Remmarguts-Date/">POJ2449 Remmarguts&#39; Date</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>求K短路的裸题<br>直接上Dijkstra+A*即可<br>当然给Dijkstra换成SPFA也可以<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/12/28/POJ2449-Remmarguts-Date/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2014-12-28T05:08:51.000Z"><a href="/2014/12/28/POJ1125-Stockbroker-Grapevine/">Dec 28 2014</a></time>
       
       
@@ -408,6 +372,42 @@ var _hmt = _hmt || [];
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-20T14:27:37.000Z"><a href="/2014/12/20/POJ2438-Children-s-Dining/">Dec 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/12/20/POJ2438-Children-s-Dining/">POJ2438 Children&#39;s Dining</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>把小朋友看成点<br>没有敌对关系的小朋友之间都有边<br>于是就是求哈密顿回路<br>由于题目给出了条件,总共有2n个小朋友,不会超过n-1个敌对关系<br>也就是说,这2n个点,每个点至少有2n-(n-1)条边,也就是说每个点的度数都&gt;=n+1,任意两个点的度数之和&gt;=2n+2<br>根据哈密顿回路存在的充分条件:n个顶点的无向图,任意两个不同顶点度数之和大于等于n<br>于是可以肯定本题一定有解<br>哈密顿回路的构造方法大概是这样<br>首先随便找出一个回路(一个点也行)<br>然后不断的扩充这条回路,直到包含所有点<br>下面上代码<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/12/20/POJ2438-Children-s-Dining/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -458,10 +458,6 @@ var _hmt = _hmt || [];
   <ul class="entry">
     
       <li>
-        <a href="/2015/07/30/hello-world/">Hello World</a>
-      </li>
-    
-      <li>
         <a href="/2015/07/08/HDU5154-Harry-and-Magical-Computer/">HDU5154 Harry and Magical Computer</a>
       </li>
     
@@ -495,6 +491,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2015/05/13/CF544B-Sea-and-Islands/">CF544B Sea and Islands</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/13/HDU1875-畅通工程再续/">HDU1875 畅通工程再续</a>
       </li>
     
   </ul>

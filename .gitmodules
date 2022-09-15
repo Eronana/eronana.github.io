@@ -1,0 +1,7 @@
+[submodule "themes/puppet"]
+	path = themes/puppet
+	url = https://github.com/roninro/hugo-theme-puppet.git
+[submodule "themes/hugo-theme-luna"]
+	path = themes/hugo-theme-luna
+	url = https://github.com/Ice-Hazymoon/hugo-theme-luna
+	branch = master

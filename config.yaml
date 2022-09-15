@@ -1,0 +1,369 @@
+baseURL: https://undefined.md
+languageCode: en-us
+defaultContentLanguage: en-us
+title: "undefined.md"
+enableRobotsTXT: true
+enableEmoji: true
+theme: hugo-theme-luna
+timeout: 60000
+timeZone: Asia/Shanghai
+
+# use git commit log to generate lastmod record
+enableGitInfo: false
+
+# enable CJK language support
+hasCJKLanguage: true
+
+# pagination size
+paginate: 10
+
+# google analytics tracking code
+# googleAnalytics: UA-98634098-1
+
+# 版权信息，默认为 author.name ↓
+# default: author.name ↓
+# copyright: ""
+
+permalinks:
+  # Format of posts links
+  posts: /:year/:month/:day/:slug.html # 2019/01/01/hello-world.html
+  pages: /:slug.html # about.html
+
+author:
+  name: Taiming
+
+frontmatter:
+  lastmod:
+    - :git
+    - lastmod
+    - :fileModTime
+    - date
+    - publishDate
+    - :default
+
+taxonomies:
+  tag: "tags"
+  category: "categories"
+
+summaryLength: 70
+canonifyURLs: false
+relativeURLs: false
+
+# see https://gohugo.io/content-management/image-processing/#imaging-configuration
+imaging:
+  resampleFilter: CatmullRom
+  quality: 95
+  anchor: smart
+
+caches:
+  getresource:
+    dir: :resourceDir/_gen
+    maxAge: 24h
+
+sitemap:
+  changefreq: weekly
+  priority: 0.5
+  filename: sitemap.xml
+
+# all supported pages
+$manuMain:
+  - &mainMenuHome
+    name: Home
+    weight: 10
+    identifier: home
+    params:
+      icon: eva eva-home
+    url: /
+  - &mainMenuAbout
+    name: About
+    weight: 998
+    identifier: about
+    params:
+      icon: eva eva-person
+    url: /about/
+  - &mainMenuLinks
+    name: Links
+    weight: 30
+    identifier: links
+    params:
+      icon: eva eva-people
+    url: /links/
+  - &mainMenuArchives
+    name: Archives
+    weight: 40
+    identifier: archives
+    params:
+      icon: eva eva-bar-chart
+    url: /archives/
+  - &mainMenuTags
+    name: Tags
+    weight: 50
+    identifier: tags
+    params:
+      icon: eva eva-hash
+    url: /tags/
+  - &mainMenuCategories
+    name: Categories
+    weight: 60
+    identifier: categories
+    params:
+      icon: eva eva-folder
+    url: /categories/
+  - &mainMenuTwitter
+    name: Twitter
+    weight: 70
+    identifier: twitter
+    params:
+      icon: eva eva-twitter
+    url: /twitter/
+  - &mainMenuGitHub
+    name: GitHub
+    weight: 80
+    identifier: github
+    params:
+      icon: eva eva-github
+    url: /github/
+  - &mainMenuSearch
+    name: Search
+    weight: 999
+    identifier: search
+    params:
+      icon: eva eva-search
+    url: /search/
+
+menu:
+  main:
+    - *mainMenuHome
+    - *mainMenuArchives
+    - *mainMenuTags
+    - *mainMenuSearch
+    - *mainMenuAbout
+
+markup:
+  highlight:
+    style: dracula
+    guessSyntax: true
+    tabWidth: 2
+    lineNumbersInTable: true
+    lineNos: true
+    codeFences: true
+  goldmark:
+    renderer:
+      unsafe: true # enable html in markdown
+      hardWraps: true
+
+# .Site.Params
+params:
+  # CDN URL
+  publicCDN: ""
+
+  # Create a Announcement section at the top of the home page
+  announcement:
+    enabled: true
+    file: "README.md" # assets/README.md
+
+  # Comment system
+  comments:
+    enabled: true
+    provider: "giscus" # custom | giscus
+    giscus: &giscus
+      repo: "Eronana/eronana.github.io"
+      repoID: "MDEwOlJlcG9zaXRvcnkyNjMwNDM3MA=="
+      category: "Comments"
+      categoryID: "DIC_kwDOAZFfcs4CRc8l"
+      mapping: "title"
+      reactionsEnabled: 1
+      emitMetadata: 0
+      lazy: false
+      lang: "en"
+
+  # RSS configuration
+  rss:
+    # If false, you must set Output Formats, see: https://gohugo.io/templates/output-formats#customizing-output-formats
+    enabled: true
+    # Output full text
+    fullText: true
+
+  # If false, you must set Output Formats, see: https://gohugo.io/templates/output-formats#customizing-output-formats
+  sitemap: true
+
+  # Site theme colors
+  themeColor: "#0594cb"
+
+  # Set website to black and white, usually for mourning events
+  blackAndWhite: false
+
+  # Output a nice console log
+  console:
+    enabled: true
+    leftColor: "#0088ff"
+    leftText: "undefined.md"
+    rightColor: "#feb462"
+    rightText: "Powered by Hugo ❤ Luna"
+
+  # Title counter
+  headlineCounter: true
+
+  # Fixed navigation bar
+  fixedNav: false
+
+  # Site font
+  # font: '"Times New Roman", Times, "Heti Song", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+  font: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif'
+
+  # ts/custom.ts
+  customScript:
+    enabled: true
+    pjax: true # Auto-reload in pjax mode
+
+  # Show site runtime
+  runTime:
+    enabled: true
+    # Site creation time
+    creatTime: 2022/09/15
+
+  # Site creation year
+  since: "2022"
+
+  # show warning when outdated info detected
+  outdatedInfoWarning:
+    enabled: true
+    # A timeout reminder will be displayed if the last modification time exceeds that number of days
+    day: 90
+
+  # Automatic switching of night mode (using device settings)
+  autoDarkMode: false
+
+  share:
+    twitter: true
+    facebook: true
+    weibo: false
+    copyLinkText: true
+    qrcode: true
+
+  qrcodeAPI: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="
+
+  # license
+  license:
+    enabled: true
+    name: "CC BY-NC-ND 4.0"
+    icon: "Cc-by-nc-nd.svg" # in assets folder
+    url: "https://creativecommons.org/licenses/by-nc-nd/4.0"
+
+  # Display i18n toggle button
+  i18nlist: false
+
+  # github page
+  # github:
+  #   id: "torvalds" # github user id
+  #   minStars: 5 # 最小 star 项目 / min stars
+
+  # tweet page
+  # twitter:
+  #   rsshub: "https://rsshub.rssforever.com" # rsshub url, see https://github.com/DIYgod/RSSHub
+  #   id: "GenshinImpact" # Twitter ID
+  #   imageProcessing: true # enable image processing
+
+  # Image Zoom Plugin
+  # see https://github.com/francoischalifour/medium-zoom
+  imageZoom: true
+
+  # lazyload image
+  lazyload: true
+
+  # Read English content faster, see https://bionic-reading.com/
+  bionicReading:
+    enabled: true
+    autoBionic: false # 自动启用 Bionic Reading / auto enable Bionic Reading
+    skipLinks: false # 跳过链接 / skip links
+    excludeWords: [] # 忽略的单词 / ignored words
+    excludeNodeNames: [] # 忽略的节点名称 / ignored node names
+    excludeClasses: ['github'] # 忽略的类名 / ignored classes
+
+  # enable google translate in footer
+  googleTranslate: true
+
+  # Optimize Chinese typography, see: https://github.com/vinta/pangu.js
+  pangu: false
+
+  # enable local search plugin
+  search: true
+
+  # For outdated reminders
+  lastmod: true
+
+  # show reading time
+  readingTime: true
+
+  # show word count
+  wordCount: false
+
+  # Show table of contents, You can enable it separately in the page
+  toc:
+    enabled: true
+    # When the article word count is greater than this value, the TOC will be displayed
+    wordCount: 400
+
+  # encryption articles
+  HugoEncrypt:
+    # default password
+    Password: "123456"
+    # or "local"
+    Storage: "session"
+
+  # Enable pjax with swup.js
+  pjax: true
+
+  # use service worker
+  pwa: true
+
+  # katex
+  katex: true
+
+  # backtop button
+  backtop: true
+
+  # Default post card featured image, not displayed on content pages
+  defaultFeaturedImage: false # false | featured.png in assets folder | https://unsplash.it/1920/1080/?random={{timestamp}}
+
+  # Optimize your images and SEO
+  imageProcessing:
+    cover: true
+    content: true
+    autoResize:
+      - 1080
+      - 1440
+    webp: true
+
+  # Twitter card styles
+  opengraph:
+    twitter: # see https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started
+      cardType: summary_large_image # summary | summary_large_image
+      site: "@Gorikokka"
+    # image: "featured.png" # in assets folder | false
+
+  author: Taiming
+  keywords:
+    - Web
+    - JavaScript
+    - Node.js
+    - Programming
+  description: "Web technologies and interesting things"
+
+build:
+  noJSConfigInAssets: true
+
+languages:
+  en-us:
+    contentDir: content
+    languageName: English
+    params:
+      languageIcon: "images/i18n/en-us.svg" # in assets folder
+      github:
+        id: "eronana"
+        minStars: 10
+      comments:
+        enabled: true
+        provider: "giscus"
+        giscus:
+          <<: *giscus

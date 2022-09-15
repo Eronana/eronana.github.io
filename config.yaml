@@ -26,8 +26,8 @@ paginate: 10
 
 permalinks:
   # Format of posts links
-  posts: /:year/:month/:day/:slug.html # 2019/01/01/hello-world.html
-  pages: /:slug.html # about.html
+  posts: /:year/:month/:day/:slug # 2019/01/01/hello-world
+  pages: /:slug # about
 
 author:
   name: Taiming

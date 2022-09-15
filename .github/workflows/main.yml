@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
     deploy:
-        if: ${{ false }} # Please delete this line
         env:
           HUGO_VERSION: ${{ github.sha }}
           TZ: Asia/Shanghai
@@ -47,9 +46,6 @@ jobs:
               uses: peaceiris/actions-gh-pages@v3
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
-                external_repository: "Eronana/eronana.github.io"
-                publish_branch: gh-pagesx
                 publish_dir: ./public
                 force_orphan: true
-                user_name: Eronana
-                user_email: erona@loli.bz
+

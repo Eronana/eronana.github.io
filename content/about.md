@@ -5,6 +5,7 @@ layout: "page"
 type: page
 comments: false
 ---
+# What is undefined.md
 
 You often need to create markdown files, so you can run `touch filename.md` to create them, but the one problem is you need to type the tedious suffix `.md`.
 So you wrote a Node.js script named `touchmd` to improve the situation:
@@ -14,7 +15,7 @@ cat /usr/local/bin/touchmd
 require('fs').writeFileSync(process.argv[2] + '.md', '');
 ```
 
-Then you ran `touchmd README` to create README.md, `ran touchmd CHANGELOG` to get CHANGELOG.md and so on.
+Then you ran `touchmd README` to create README.md, ran `touchmd CHANGELOG` to get CHANGELOG.md and so on.
 ```bash
 mkdir the-greatest-project && cd "$_" && touchmd README && ls
 README.md

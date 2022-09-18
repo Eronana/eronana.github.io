@@ -1,0 +1,389 @@
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>undefined.md</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://undefined.md/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://undefined.md/</link><managingEditor>Taiming</managingEditor><description>Web technologies and interesting things</description><lastBuildDate>Fri, 16 Sep 2022 21:52:16 +0800</lastBuildDate><language>en-us</language><generator>Hugo -- gohugo.io</generator><item><title>Wrong alpha premultiplication on iOS Safari</title><link>https://undefined.md/2022/09/16/wrong-alpha-premultiplication-on-ios-safari/</link><pubDate>Fri, 16 Sep 2022 21:52:16 +0800</pubDate><guid>https://undefined.md/2022/09/16/wrong-alpha-premultiplication-on-ios-safari/</guid><description>
+&lt;h2 class="group " id="problem"
+>Problem&lt;a href="#problem"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>The PNG supports 4 channels called &lt;code>RGBA&lt;/code>, and we usually use the alpha channel for opacity.&lt;br>
+But there is a different usecase to the alpha channel, the emissive intensity. The finally color will be added to the &lt;code>emissive color * emissive intensity&lt;/code>.&lt;br>
+In the fragment shader it would look like:&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-glsl" data-lang="glsl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">precision&lt;/span> &lt;span style="color:#ff79c6">mediump&lt;/span> &lt;span style="color:#ff79c6">float&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">uniform&lt;/span> &lt;span style="color:#ff79c6">sampler2D&lt;/span> texture;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">varying&lt;/span> &lt;span style="color:#ff79c6">vec2&lt;/span> uv;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">void&lt;/span> main () {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">vec4&lt;/span> color &lt;span style="color:#ff79c6">=&lt;/span> texture2D(texture, uv);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">vec3&lt;/span> emissiveColor &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">vec3&lt;/span>(&lt;span style="color:#bd93f9">1&lt;/span>, &lt;span style="color:#bd93f9">0&lt;/span>, &lt;span style="color:#bd93f9">0&lt;/span>); &lt;span style="color:#6272a4">// let red be the emissive color&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> gl_FragColor &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">vec4&lt;/span>(color.rgb &lt;span style="color:#ff79c6">+&lt;/span> color.a &lt;span style="color:#ff79c6">*&lt;/span> emissiveColor, &lt;span style="color:#bd93f9">1&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Let&amp;rsquo;s generate a PNG image to render.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> ndarray &lt;span style="color:#ff79c6">=&lt;/span> require(&lt;span style="color:#f1fa8c">&amp;#39;ndarray&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> savePixels &lt;span style="color:#ff79c6">=&lt;/span> require(&lt;span style="color:#f1fa8c">&amp;#39;save-pixels&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> width &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">100&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> height &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">100&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> image &lt;span style="color:#ff79c6">=&lt;/span> ndarray(&lt;span style="color:#ff79c6">new&lt;/span> Uint8Array(width &lt;span style="color:#ff79c6">*&lt;/span> height &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">4&lt;/span>), [width, height, &lt;span style="color:#bd93f9">4&lt;/span>]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> i &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; i &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> width; i&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> j &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; j &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> height; j&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">const&lt;/span> r &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.floor(&lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.random() &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x100&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">const&lt;/span> g &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.floor(&lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.random() &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x100&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">const&lt;/span> b &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.floor(&lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.random() &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x100&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// 50% probability to generate non-zero emissive intensity
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">const&lt;/span> a &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.random() &lt;span style="color:#ff79c6">&amp;gt;&lt;/span> &lt;span style="color:#bd93f9">0.5&lt;/span> &lt;span style="color:#ff79c6">?&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span> &lt;span style="color:#ff79c6">:&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.floor(&lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.random() &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x100&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> image.set(i, j ,&lt;span style="color:#bd93f9">0&lt;/span>, r);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> image.set(i, j ,&lt;span style="color:#bd93f9">1&lt;/span>, g);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> image.set(i, j ,&lt;span style="color:#bd93f9">2&lt;/span>, b);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> image.set(i, j ,&lt;span style="color:#bd93f9">3&lt;/span>, a);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>savePixels(image, &lt;span style="color:#f1fa8c">&amp;#39;png&amp;#39;&lt;/span>).pipe(process.stdout);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Save the code to &lt;code>random-png.js&lt;/code>, and run &lt;code>npm i ndarray save-pixels&lt;/code> to install dependencies.&lt;br>
+Run &lt;code>node random-png.js &amp;gt; random.png&lt;/code> to get the &lt;code>random.png&lt;/code>.&lt;/p>
+&lt;p>The below tables show the results in different browsers.&lt;/p>
+&lt;table style="text-align: center;">
+&lt;tr>
+&lt;th>Original&lt;/th>
+&lt;th>Your browser&lt;/th>
+&lt;th>macOS Chrome&lt;/th>
+&lt;th>macOS Safari&lt;/th>
+&lt;th>iOS Safari&lt;/th>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;img id="original-image" style="min-width:100px;width:100px;height:100px;" src="random.png">&lt;/td>
+&lt;td>&lt;canvas id="texture-canvas" style="width:100px;height:100px;">&lt;/td>
+&lt;td>&lt;img style="min-width:100px;width:100px;height:100px;" src="macOS_Chrome.png">&lt;/td>
+&lt;td>&lt;img style="min-width:100px;width:100px;height:100px;" src="macOS_Safari.png">&lt;/td>
+&lt;td>&lt;img style="min-width:100px;width:100px;height:100px;" src="iOS_Safari.png">&lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;script language="javascript" src="https://npmcdn.com/regl/dist/regl.js">&lt;/script>
+&lt;script language="javascript" src="render-png.js">&lt;/script>
+&lt;p>The result of &lt;code>iOS Safari&lt;/code> seems so different, all pixels with 0 alpha become black.&lt;br>
+It seems iOS Safari did the wrong premultiplication on images.&lt;/p>
+&lt;h2 class="group " id="solutions"
+>Solutions&lt;a href="#solutions"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Is there any way to solve the problem?&lt;br>
+Yes, I came up with 3 solutions:&lt;/p>
+&lt;ol>
+&lt;li>Do not do this. If you want 4 channels and alpha channel is not for opacity, then just use two textures.&lt;/li>
+&lt;li>Do not use image, you can put image data into a binary file and read it as a &lt;code>Uint8Array&lt;/code> and load it into a texture.&lt;/li>
+&lt;li>Use a PNG decoder to directly decode the image, then you can get a clear image data.&lt;/li>
+&lt;/ol></description></item><item><title>Using Node.js to generate indexed PNG</title><link>https://undefined.md/2022/09/15/using-node.js-to-generate-indexed-png/</link><pubDate>Thu, 15 Sep 2022 16:04:21 +0800</pubDate><guid>https://undefined.md/2022/09/15/using-node.js-to-generate-indexed-png/</guid><description>
+&lt;h2 class="group " id="a-glance-of-indexed-png"
+>A glance of indexed PNG&lt;a href="#a-glance-of-indexed-png"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Most PNG images have three or four channels, that indicate RGB or RGBA.&lt;br>
+But PNG files also support indexed images, so you can put a palette into it and use one channel to indicate the palette index to represent the image.&lt;br>
+In this article, we are going to discuss how to generate indexed PNG images in Node.js.&lt;/p>
+&lt;p>According to the wiki &lt;a
+class="link"
+href="https://en.wikipedia.org/wiki/Portable_Network_Graphics"target="_blank" rel="noopener">Portable Network Graphics&lt;/a
+>
+, we know several parts of png:&lt;/p>
+&lt;ol>
+&lt;li>Every png file starts with an 8-byte PNG signature: &lt;code>'\x89PNG\r\n\x1a\n'&lt;/code>.&lt;/li>
+&lt;li>Followings are chunks. the structure of chunks is:
+&lt;ul>
+&lt;li>&lt;code>length of data&lt;/code>: 4 bytes&lt;/li>
+&lt;li>&lt;code>chunk type&lt;/code>: 4 bytes&lt;/li>
+&lt;li>&lt;code>data&lt;/code>: length bytes&lt;/li>
+&lt;li>&lt;code>CRC of type and data&lt;/code>: 4 bytes&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>The 4 chunks are required for indexed PNG is &lt;code>IHDR&lt;/code>, &lt;code>PLTE&lt;/code>, &lt;code>IDAT&lt;/code>, and &lt;code>IEND&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;h2 class="group " id="preparation"
+>Preparation&lt;a href="#preparation"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>First of all, we should decide how the image should be created.&lt;br>
+I think a colorful 16*16-sized image would be good.&lt;br>
+Then we need an array of &lt;code>Buffer&lt;/code> to store the PNG data.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> data &lt;span style="color:#ff79c6">=&lt;/span> [];
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we can use &lt;code>data.push(someBuffer)&lt;/code> to append chunk buffers to the data.&lt;/p>
+&lt;h2 class="group " id="header"
+>Header&lt;a href="#header"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Following the PNG format, just write the header.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>data.push(Buffer.from(&lt;span style="color:#f1fa8c">&amp;#39;\x89PNG\r\n\x1a\n&amp;#39;&lt;/span>, &lt;span style="color:#f1fa8c">&amp;#39;latin1&amp;#39;&lt;/span>)); &lt;span style="color:#6272a4">// write the header
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="chunks"
+>Chunks&lt;a href="#chunks"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>To write chunks properly, we need to implement a function called &lt;code>generateChunk&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">// use package crc-32 for calculate crc32,
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">// do not forget run `npm i crc-32` to install it.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>&lt;span style="color:#ff79c6">const&lt;/span> CRC32 &lt;span style="color:#ff79c6">=&lt;/span> require(&lt;span style="color:#f1fa8c">&amp;#39;crc-32&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">function&lt;/span> generateChunk(type, data) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// 4 bytes length + 4 bytes type + 4 bytes crc + data length
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">const&lt;/span> buffer &lt;span style="color:#ff79c6">=&lt;/span> Buffer.alloc(&lt;span style="color:#bd93f9">3&lt;/span> &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">4&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> data.length);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// should calculate the crc32 of type and data
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">const&lt;/span> crc &lt;span style="color:#ff79c6">=&lt;/span> CRC32.buf(data, CRC32.bstr(type));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer.writeInt32BE(data.length);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer.write(type, &lt;span style="color:#bd93f9">4&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data.copy(buffer, &lt;span style="color:#bd93f9">8&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer.writeInt32BE(crc, buffer.length &lt;span style="color:#ff79c6">-&lt;/span> &lt;span style="color:#bd93f9">4&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">return&lt;/span> buffer;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There are 4 chunks to be written, let&amp;rsquo;s solve them one by one.&lt;/p>
+&lt;h3 class="group " id="ihdr"
+>IHDR&lt;a href="#ihdr"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>There are so many fields in IHDR, but only the width and height are what we really care about.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> ihdrData &lt;span style="color:#ff79c6">=&lt;/span> Buffer.alloc(&lt;span style="color:#bd93f9">13&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ihdrData.writeUInt32BE(&lt;span style="color:#bd93f9">16&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ihdrData.writeUInt32BE(&lt;span style="color:#bd93f9">16&lt;/span>, &lt;span style="color:#bd93f9">4&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ihdrData[&lt;span style="color:#bd93f9">8&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">8&lt;/span>; &lt;span style="color:#6272a4">// bit depth
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>ihdrData[&lt;span style="color:#bd93f9">9&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">3&lt;/span>; &lt;span style="color:#6272a4">// color type = indexed color
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>ihdrData[&lt;span style="color:#bd93f9">10&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; &lt;span style="color:#6272a4">// compression method, must be 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>ihdrData[&lt;span style="color:#bd93f9">11&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; &lt;span style="color:#6272a4">// filter method, only 0 is avaliable
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>ihdrData[&lt;span style="color:#bd93f9">12&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span> &lt;span style="color:#6272a4">// interlace method = no interlace
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">// write the chunk
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>data.push(generateChunk(&lt;span style="color:#f1fa8c">&amp;#39;IHDR&amp;#39;&lt;/span>, ihdrData));
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h3 class="group " id="plte"
+>PLTE&lt;a href="#plte"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>The palette, let&amp;rsquo;s just make a colorful 256-length palette.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">// 3 bytes(r, g, b) * 256
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>&lt;span style="color:#ff79c6">const&lt;/span> plteData &lt;span style="color:#ff79c6">=&lt;/span> Buffer.alloc(&lt;span style="color:#bd93f9">256&lt;/span> &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">3&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> i &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; i &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">256&lt;/span>; i&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plteData[i &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">3&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> (i &lt;span style="color:#ff79c6">%&lt;/span> &lt;span style="color:#bd93f9">7&lt;/span>) &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">36&lt;/span>; &lt;span style="color:#6272a4">// red
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> plteData[i &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">3&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#bd93f9">1&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.floor(i &lt;span style="color:#ff79c6">/&lt;/span> &lt;span style="color:#bd93f9">7&lt;/span>) &lt;span style="color:#ff79c6">%&lt;/span> &lt;span style="color:#bd93f9">7&lt;/span> &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">36&lt;/span>; &lt;span style="color:#6272a4">// green
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> plteData[i &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">3&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#bd93f9">2&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Math&lt;/span>.floor(i &lt;span style="color:#ff79c6">/&lt;/span> &lt;span style="color:#bd93f9">7&lt;/span> &lt;span style="color:#ff79c6">/&lt;/span> &lt;span style="color:#bd93f9">7&lt;/span>) &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">36&lt;/span>; &lt;span style="color:#6272a4">// blue
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>data.push(generateChunk(&lt;span style="color:#f1fa8c">&amp;#39;PLTE&amp;#39;&lt;/span>, plteData));
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h3 class="group " id="idat"
+>IDAT&lt;a href="#idat"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>This chunk is the actual image data chunk, it includes indices of the color.&lt;br>
+We can just fill it from &lt;code>0&lt;/code> to &lt;code>16 * 16 - 1&lt;/code> to show all colors in the palette sequential.&lt;br>
+The data of IDAT chunk should be compressed by Deflate, the &lt;code>zlib&lt;/code> should be used.&lt;br>
+The pre-compressed data should contain height rows, and each line starts with a filter type. Indexed PNG does not need any filter, which means each row should start with 0(None).&lt;br>
+Since there is an extra byte indicating filter type in rows, the size of the data is (width + 1) * height = (16 + 1) * 16;&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> zlib &lt;span style="color:#ff79c6">=&lt;/span> require(&lt;span style="color:#f1fa8c">&amp;#39;zlib&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> uncompressedData &lt;span style="color:#ff79c6">=&lt;/span> Buffer.alloc(&lt;span style="color:#bd93f9">17&lt;/span> &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">16&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> x &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; x &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">16&lt;/span>; x&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> y &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; y &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">16&lt;/span>; y&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> uncompressedData[y &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">17&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> x &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#bd93f9">1&lt;/span>] &lt;span style="color:#ff79c6">=&lt;/span> y &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">16&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> x;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> idatData &lt;span style="color:#ff79c6">=&lt;/span> zlib.deflateSync(uncompressedData);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>data.push(generateChunk(&lt;span style="color:#f1fa8c">&amp;#39;IDAT&amp;#39;&lt;/span>, idatData));
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h3 class="group " id="iend"
+>IEND&lt;a href="#iend"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>No data with chunk IEND, just create an empty Buffer as data.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>data.push(generateChunk(&lt;span style="color:#f1fa8c">&amp;#39;IEND&amp;#39;&lt;/span>, Buffer.alloc(&lt;span style="color:#bd93f9">0&lt;/span>)));
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="save-to-file"
+>Save to file&lt;a href="#save-to-file"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Now we can concatenate the chunks to get the data buffer of the png image and write it into a file.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> fs &lt;span style="color:#ff79c6">=&lt;/span> require(&lt;span style="color:#f1fa8c">&amp;#39;fs&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> buffer &lt;span style="color:#ff79c6">=&lt;/span> Buffer.concat(data);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fs.writeFileSync(&lt;span style="color:#f1fa8c">&amp;#39;indexed-image.png&amp;#39;&lt;/span>, buffer);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="the-indexed-png"
+>The indexed-png&lt;a href="#the-indexed-png"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>I&amp;rsquo;ve created a package called &lt;a
+class="link"
+href="https://github.com/Eronana/indexed-png"target="_blank" rel="noopener">indexed-png&lt;/a
+>
+to do this, you can use it to generate a indexed png easily:&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> fs &lt;span style="color:#ff79c6">=&lt;/span> require(&lt;span style="color:#f1fa8c">&amp;#39;fs&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> { createPNG } from &lt;span style="color:#f1fa8c">&amp;#39;indexed-png&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">const&lt;/span> palette &lt;span style="color:#ff79c6">=&lt;/span> [];
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> r &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; r &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">6&lt;/span>; r&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> g &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; g &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">6&lt;/span>; g&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">for&lt;/span> (&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> b &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">0&lt;/span>; b &lt;span style="color:#ff79c6">&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">6&lt;/span>; b&lt;span style="color:#ff79c6">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> palette.push((r &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x33&lt;/span>) &lt;span style="color:#ff79c6">|&lt;/span> ((g &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x33&lt;/span>) &lt;span style="color:#ff79c6">&amp;lt;&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">8&lt;/span>) &lt;span style="color:#ff79c6">|&lt;/span> ((b &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">0x33&lt;/span>) &lt;span style="color:#ff79c6">&amp;lt;&amp;lt;&lt;/span> &lt;span style="color:#bd93f9">16&lt;/span>));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(&lt;span style="color:#ff79c6">async&lt;/span> () =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">const&lt;/span> width &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">36&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">const&lt;/span> height &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#bd93f9">6&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">const&lt;/span> data &lt;span style="color:#ff79c6">=&lt;/span> Buffer.from(&lt;span style="color:#8be9fd;font-style:italic">Array&lt;/span>(width &lt;span style="color:#ff79c6">*&lt;/span> height).fill(&lt;span style="color:#bd93f9">0&lt;/span>).map((_, i) =&amp;gt; i &lt;span style="color:#ff79c6">%&lt;/span> (&lt;span style="color:#bd93f9">6&lt;/span> &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">6&lt;/span> &lt;span style="color:#ff79c6">*&lt;/span> &lt;span style="color:#bd93f9">6&lt;/span>)));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> fs.writeFileSync(&lt;span style="color:#f1fa8c">&amp;#39;test.png&amp;#39;&lt;/span>, (&lt;span style="color:#ff79c6">await&lt;/span> createPNG(data, palette, width, height)));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})();
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

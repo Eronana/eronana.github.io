@@ -1,7 +1,7 @@
 (function() {
   const regl = createREGL(document.getElementById('texture-canvas'));
   const image = document.getElementById('original-image');
-  const draw = regl({
+  const draw = () => regl({
     frag: `
     precision mediump float;
     uniform sampler2D texture;
@@ -33,7 +33,7 @@
       texture: regl.texture(image)
     },
     count: 3,
-  });
+  })();
   if (image.complete) {
     draw();
   } else {
